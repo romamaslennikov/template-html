@@ -1,0 +1,26 @@
+/* Icons font
+==============================================================================*/
+@font-face {
+    font-family: 'Icons';
+    src: url('../fonts/Icons.eot');
+    src: url('../fonts/Icons.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Icons.woff') format('woff'),
+    url('../fonts/Icons.ttf') format('truetype'),
+    url('../fonts/Icons.svg#Icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class*='i_']:before {
+    font-family: 'Icons';
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+.i_icon-alert:before {content:'\E001';}
+.i_icon-calendar:before {content:'\E002';}
+.i_icon-card:before {content:'\E003';}
+.i_icon-doc:before {content:'\E004';}
+.i_icon-phone:before {content:'\E005';}

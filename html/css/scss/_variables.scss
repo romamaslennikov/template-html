@@ -1,0 +1,36 @@
+// Fonts
+$fz-base:						#{14px};
+$line-height-base:				#{1.4};
+$family-base:					Arial, sans-serif;
+$family-hgroup:                 $family-base;
+
+
+// Text color, background and border color
+$bg-color-base:					white;
+$color-base:					black;
+$placeholder:					#ccc;
+
+$linkColor:						#00bbee;
+$linkColorHover:				#00bbee;
+$linkColorVisited:				#00bbee;
+$linkColorActive:				#00bbee;
+
+$error:							red;
+
+
+// Animation
+$anim-global:					.4s;
+
+
+// Prefix classes
+$pathImg:                       '../';
+
+// switch radio checkbox
+$switchW:                       15px;
+$switchH:                       15px;
+$switchNotCheckedBg:            #fff;
+$switchNotCheckedBorder:        1px solid #ccc;
+$switchCheckedBg:               #ccc;
+$switchCheckedBorder:           1px solid #ccc;
+$switchCheckedShadow:           0 0 0 3px #fff inset;
+

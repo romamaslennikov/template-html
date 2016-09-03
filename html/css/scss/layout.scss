@@ -1,0 +1,105 @@
+@import "variables";
+@import "mixins";
+@import "normalize";
+@import "meta-classes";
+@import "font-face";
+@import "typography";
+@import "sprite";
+@import "icons";
+
+/* Template styles
+==============================================================================*/
+html, body {
+    font: 13px/1.4 Arial, sans-serif;
+    height:100%;
+    width:100%;
+    color: $color-base;
+    background: $bg-color-base;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-width: 1000px;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/* Wrapper
+-----------------------------------------------------------*/
+#wrapper,#header,#content,#footer,.pie{position:relative}
+#wrapper{
+    min-height:100%;
+    height: auto !important;
+    height:100%;
+    margin:0 auto;
+}
+/* Header
+-----------------------------------------------------------*/
+#header{
+}
+.header-center{
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+}
+/* Container
+-----------------------------------------------------------*/
+#content{
+    padding:0 0 100px;
+    zoom: 1;
+}
+#content:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.columns{
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+}
+.center{
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+}
+.columns-center{
+    float:left;
+    width:100%;
+    position: relative;
+}
+.columns-content{
+    margin: 0 260px;
+    position: relative;
+}
+/* Sidebar
+-----------------------------------------------------------*/
+.columns-left{
+    width:250px;
+    margin-left:-100%;
+    float:left;
+    background:#808080;
+    position: relative;
+}
+.columns-right{
+    width:250px;
+    margin-left: -254px;
+    float:right;
+    background:#808040;
+    position: relative;
+}
+/* Footer
+-----------------------------------------------------------*/
+#footer{
+    height:100px;
+    margin:-100px auto 0;
+    clear:both;
+    background: none repeat scroll 0 0 #eee;
+}
+.footer-center{
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
