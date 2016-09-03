@@ -7,7 +7,7 @@ Before running any Gulp tasks:
 1. Check out this repository
 2. Ensure you have **node** installed
 3. Run `npm run go` in the root directory
-4. Open link http://localhost:3000
+4. Open link http://localhost:8000
 
 ## Project Structure
 
