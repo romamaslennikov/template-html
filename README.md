@@ -1,5 +1,6 @@
-# template-html
-gulp: html, css, js
+# TEMPLATE HTML - fast built
+gulp: html, css, js, create sprite and svg to fonts
+![AngularJS plus Gulp](app.jpg)
 ## Installation
 
 Before running any Gulp tasks:
