@@ -1,25 +1,27 @@
 {
-  "name": "yodo",
+  "name": "template-html",
   "version": "1.0.0",
-  "description": "",
+  "description": "== README",
   "directories": {
-    "test": "test",
     "packages": "jspm_packages"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "styles:vendor": "gulp styles:vendor",
+    "styles:custom": "gulp styles:custom",
     "fonts:vendor": "gulp fonts:vendor",
     "sprite": "gulp sprite",
     "iconfont": "gulp iconfont",
     "js:vendor": "gulp js:vendor",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "install-deps": "npm install && jspm install",
+    "go": "npm run install-deps && npm run serve"
   },
   "repository": {
     "type": "git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Roma Maslennikov",
+  "license": "MIT",
   "homepage": "",
   "devDependencies": {
     "browser-sync": "^2.14.3",
@@ -46,6 +48,7 @@
     "vinyl-buffer": "^1.0.0"
   },
   "jspm": {
+    "configFile": "jspm.config.js",
     "directories": {
       "test": "test"
     },

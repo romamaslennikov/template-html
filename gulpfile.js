@@ -38,6 +38,7 @@ let notifyOnError = function() {
 //               DECLARE PATHS
 //=============================================
 let paths = {
+  app: './'+patch+'/',
   html: './'+patch+'/**/*.html',
   css: './'+patch+'/css/*.css',
   cssDir: './'+patch+'/css/',
@@ -185,7 +186,10 @@ gulp.task('iconfont', () => {
  * */
 gulp.task('serve', () => {
   browserSync({
-    proxy: 'localhost',
+    port: 8000,
+    server: {
+      baseDir: paths.app
+    },
     notify: false,
     open: false
   });

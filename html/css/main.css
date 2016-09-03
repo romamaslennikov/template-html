@@ -407,6 +407,8 @@ template {
 [hidden] {
   display: none; }
 
+/* Meta classes
+==============================================================================*/
 .reset {
   margin: 0;
   padding: 0;
@@ -976,6 +978,10 @@ input.error {
     -o-transform: rotate(360deg);
     transform: rotate(360deg); } }
 
+/* Font face
+==============================================================================*/
+/* Typography
+==============================================================================*/
 /* H Group
 -----------------------------------------------------------*/
 h1, .h1 {
@@ -1200,6 +1206,8 @@ input[type="button"] {
 .icon-i_0005_slider_arrow_left-copy {
   background-position: -25px 0; }
 
+/* Icons font
+==============================================================================*/
 @font-face {
   font-family: 'Icons';
   src: url("../fonts/Icons.eot");
