@@ -1,5 +1,7 @@
 # TEMPLATE HTML - fast built
-gulp: html, css, js, create sprite, svg to fonts and create web fonts
+gulp: html, css, js, create sprite, svg to fonts, create web fonts,
+ minify PNG, JPEG, GIF and SVG images, email builder.
+
 ![AngularJS plus Gulp](app.jpg)
 ## Installation
 
@@ -34,5 +36,7 @@ Before running any Gulp tasks:
     |     |     |---- /.tmp  ----->(fonts for create web fonts)
     |---- /mail_html
     |     |---- index.html
+    |     |---- email.css
     |     |---- /img
+    |     |---- /dist
 

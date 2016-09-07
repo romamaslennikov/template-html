@@ -53,7 +53,11 @@ let paths = {
   fonts: './'+patch+'/fonts/**/*.{eot,svg,ttf,woff,woff2}',
   fontsDir: './'+patch+'/fonts/',
   fontsForConvert: './'+patch+'/fonts/.tmp/*.{ttf,otf}',
-  fontsDirVendor: 'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}'
+  fontsDirVendor: 'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}',
+  mail: './mail_html/*.html',
+  mailCss: './mail_html/*.css',
+  mailDir: './mail_html/',
+  mailDirDist: './mail_html/dist/',
 };
 
 //=============================================
@@ -204,6 +208,28 @@ gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], function() {
 // 4) Main task
 gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
 
+/*
+ * Minify PNG, JPEG, GIF and SVG images
+ * */
+gulp.task('minify-images', () =>
+  gulp.src(paths.imgDir+'*.{png,gif,jpg,jpeg,svg}')
+    .pipe($.imagemin())
+    .pipe(gulp.dest(paths.imgDir))
+);
+
+/*
+ * Uses Email Builder to inline css into HTML tags, send tests to Litmus, and send test emails to yourself.
+ * */
+gulp.task('emailPicCopy', function() {
+  return gulp.src(paths.mailDir+'img/**/*.{png,jpg,jpeg}')
+    .pipe(gulp.dest(paths.mailDirDist+'img'));
+});
+gulp.task('emailBuilder', ['emailPicCopy'], function() {
+  return gulp.src(paths.mail)
+    .pipe($.emailBuilder().build())
+    .pipe(gulp.dest(paths.mailDirDist));
+});
+
 //=============================================
 //                DEVELOPMENT TASKS
 //=============================================
@@ -234,6 +260,21 @@ gulp.task('serve', ['styles:custom'], () => {
   gulp.watch([paths.js], browserSync.reload);
 
   gulp.watch([paths.img], browserSync.reload);
+});
+
+gulp.task('serve:mail', () => {
+  browserSync({
+    port: 8000,
+    server: {
+      baseDir: paths.mailDir
+    },
+    notify: false,
+    open: false
+  });
+
+  gulp.watch([paths.mail], browserSync.reload);
+
+  gulp.watch([paths.mailCss], browserSync.reload);
 });
 
 gulp.task('default', ['serve']);

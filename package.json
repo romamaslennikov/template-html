@@ -1,6 +1,6 @@
 {
   "name": "template-html",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "== README",
   "directories": {
     "packages": "jspm_packages"
@@ -14,7 +14,10 @@
     "iconfont": "gulp iconfont",
     "js:vendor": "gulp js:vendor",
     "build-web-fonts": "gulp build-web-fonts",
+    "minify-images": "gulp minify-images",
+    "emailBuilder": "gulp emailBuilder",
     "serve": "gulp serve",
+    "serve:mail": "gulp serve:mail",
     "install-deps": "npm install && jspm install",
     "go": "npm run install-deps && npm run serve"
   },
@@ -32,6 +35,7 @@
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-csso": "^2.0.0",
+    "gulp-email-builder": "^3.0.0",
     "gulp-filter": "^4.0.0",
     "gulp-flatten": "^0.3.1",
     "gulp-fontgen": "^0.2.5",
