@@ -1,5 +1,5 @@
 # TEMPLATE HTML - fast built
-gulp: html, css, js, create sprite and svg to fonts
+gulp: html, css, js, create sprite, svg to fonts and create web fonts
 ![AngularJS plus Gulp](app.jpg)
 ## Installation
 
@@ -28,8 +28,10 @@ Before running any Gulp tasks:
     |     |     |---- main.css
     |     |     |---- vendor.css
     |     |---- /img
-    |     |     |---- /icons-for-sprite
-    |     |     |---- /svg-for-font
+    |     |     |---- /icons-for-sprite  ----->(icons for create sprite)
+    |     |     |---- /svg-for-font  ----->(svg icons for create icons font)
+    |     |---- /fonts
+    |     |     |---- /.tmp  ----->(fonts for create web fonts)
     |---- /mail_html
     |     |---- index.html
     |     |---- /img

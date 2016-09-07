@@ -21,8 +21,8 @@ let $ = (require('gulp-load-plugins'))();
  * Declare variables that are use in gulpfile.js
  */
 let patch = 'html'; // name_html
-let fontName = 'Icons';
-let cssClassPrefix = 'i_';
+let fontName = 'Icons'; // name icons font
+let cssClassPrefix = 'i_'; // start css class for font icons
 
 //=============================================
 //               UTILS FUNCTIONS
@@ -52,6 +52,7 @@ let paths = {
   svgForFont: './'+patch+'/img/svg-for-font/**/*.svg',
   fonts: './'+patch+'/fonts/**/*.{eot,svg,ttf,woff,woff2}',
   fontsDir: './'+patch+'/fonts/',
+  fontsForConvert: './'+patch+'/fonts/.tmp/*.{ttf,otf}',
   fontsDirVendor: 'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}'
 };
 
@@ -83,9 +84,9 @@ gulp.task('styles:custom', 'Compile sass files into the main.css', () => {
     }))
     .on('error', notifyOnError())
     .pipe($.autoprefixer({
-            browsers: ['> .01%'],
-            cascade: false
-        }))
+      browsers: ['> .01%'],
+      cascade: false
+    }))
     .pipe($.concat('main.css'))
     .pipe($.sourcemaps.write('../../maps'))
     .pipe(gulp.dest(paths.cssDir));
@@ -108,7 +109,7 @@ gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
 });
 
 /**
- * Compile vendor styles into the vendor.css
+ * Compile vendor js into the vendor.js
  */
 gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
   return gulp.src([
@@ -125,7 +126,8 @@ gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
 gulp.task('fonts:vendor', 'Copy fonts vendor to `fonts` directory', () => {
   return gulp.src(paths.fontsDirVendor)
     .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
-    .pipe($.flatten()).on('error', notifyOnError())
+    .pipe($.flatten())
+    .on('error', notifyOnError())
     .pipe(gulp.dest(paths.fontsDir))
     .pipe($.size({
       title: 'fonts'
@@ -177,6 +179,31 @@ gulp.task('iconfont', () => {
     .pipe(gulp.dest(paths.fontsDir));
 });
 
+/*
+ * Create web fonts
+ * */
+// 1) Create web fonts
+gulp.task('fontgen', function() {
+  return gulp.src(paths.fontsForConvert)
+    .pipe($.fontgen({
+      dest: paths.fontsDir,
+      css_fontpath: "../fonts"
+    }));
+});
+// 2) Concat font css files
+gulp.task('fontgen-concat-css', ['fontgen'], function() {
+  return gulp.src(paths.fontsDir+'*.css')
+    .pipe($.concat('font-face.css'))
+    .pipe(gulp.dest(paths.fontsForConvert));
+});
+// 3) Remove original font css files
+gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], function() {
+  gulp.src(paths.fontsDir+'*.css')
+    .pipe($.clean());
+});
+// 4) Main task
+gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
+
 //=============================================
 //                DEVELOPMENT TASKS
 //=============================================
@@ -184,7 +211,7 @@ gulp.task('iconfont', () => {
 /*
  * The 'serve' task serve the dev environment.
  * */
-gulp.task('serve', () => {
+gulp.task('serve', ['styles:custom'], () => {
   browserSync({
     port: 8000,
     server: {
