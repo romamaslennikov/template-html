@@ -40,3 +40,10 @@ Before running any Gulp tasks:
     |     |---- /img
     |     |---- /dist
 
+## Version
+
+1.0.4
+
+## License
+
+MIT

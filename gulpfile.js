@@ -47,6 +47,7 @@ let paths = {
   js: './'+patch+'/js/**/*.js',
   jsDir: './'+patch+'/js/',
   iconsForSprite: './'+patch+'/img/icons-for-sprite/**/*.png',
+  iconsForSpriteDir: './'+patch+'/img/icons-for-sprite/',
   img: './'+patch+'/img/**/*.{png,gif,jpg,jpeg,svg,ico}',
   imgDir: './'+patch+'/img/',
   svgForFont: './'+patch+'/img/svg-for-font/**/*.svg',
@@ -144,8 +145,11 @@ gulp.task('fonts:vendor', 'Copy fonts vendor to `fonts` directory', () => {
 gulp.task('sprite', () => {
   var spriteData =  gulp.src(paths.iconsForSprite)
     .pipe($.spritesmith({
+      //retinaSrcFilter: paths.iconsForSpriteDir+'*-2x.png',
       imgName: '../img/sprite.png',
+      //retinaImgName: '../img/sprite-2x.png',
       cssName: '_sprite.css',
+      cssTemplate: './_sprite_template.css.tmpl',
       padding: 2
     }));
   spriteData.img
@@ -159,6 +163,7 @@ gulp.task('sprite', () => {
     .pipe($.csso())
     .pipe(gulp.dest(paths.scssDir));
 });
+
 
 /*
  * Create icons font

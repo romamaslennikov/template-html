@@ -1,0 +1,12 @@
+[class*='sprite-']{
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(../img/sprite.png);
+}
+{{#sprites}}
+.sprite-{{name}} {
+	background-position: {{px.offset_x}} {{px.offset_y}};
+	width: {{px.width}};
+	height: {{px.height}};
+}
+{{/sprites}}

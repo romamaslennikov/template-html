@@ -1,6 +1,6 @@
 {
   "name": "template-html",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "== README",
   "directories": {
     "packages": "jspm_packages"
@@ -55,10 +55,10 @@
     "vinyl-buffer": "^1.0.0"
   },
   "jspm": {
-    "configFile": "jspm.config.js",
     "directories": {
       "test": "test"
     },
+    "configFile": "jspm.config.js",
     "dependencies": {
       "OwlCarousel": "github:OwlFonk/OwlCarousel@^1.3.2",
       "bootstrap": "github:twbs/bootstrap@^3.3.7",
