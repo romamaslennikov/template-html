@@ -214,11 +214,14 @@ gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], function() {
 gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
 
 /*
- * Minify PNG, JPEG, GIF and SVG images
+ * Minify PNG, JPEG, GIF, SVG images
  * */
 gulp.task('minify-images', () =>
-  gulp.src(paths.imgDir+'*.{png,gif,jpg,jpeg,svg}')
-    .pipe($.imagemin())
+  gulp.src(paths.imgDir+'images/**/*.{png,gif,jpg,jpeg,svg}')
+    .pipe($.imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}]
+    }))
     .pipe(gulp.dest(paths.imgDir))
 );
 
