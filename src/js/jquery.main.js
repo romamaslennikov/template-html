@@ -2,8 +2,6 @@
   $(function() {
     initHeightFooter('#footer','#content');
     tabs('.tabs-menu','.tabs-menu-item','.tabs','.tabs-content',200);
-    initScrollTo('.guide-menu');
-    addBtnTop('.up-btn',500,400,0);
   });
 
   /*

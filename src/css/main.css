@@ -66,8 +66,6 @@ figure {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   /* 1 */
   height: 0;
@@ -291,8 +289,6 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 1 */
   color: inherit;
@@ -328,8 +324,6 @@ textarea {
  */
 [type="checkbox"],
 [type="radio"] {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 1 */
   padding: 0;
@@ -861,8 +855,6 @@ input.error {
   outline: none;
   padding: 4px 8px;
   border: 1px solid #ccc;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
   font: 14px Arial, sans-serif;
   text-align: center;
@@ -893,8 +885,6 @@ input.error {
   z-index: 1000;
   -webkit-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   width: 3rem;
   height: 3rem;
@@ -910,8 +900,6 @@ input.error {
   content: '';
   top: 0;
   left: 50%;
-  -webkit-border-radius: 500rem;
-  -moz-border-radius: 500rem;
   border-radius: 500rem;
   border: 0.3em solid rgba(0, 0, 0, 0.1); }
 
@@ -921,21 +909,13 @@ input.error {
   top: 0;
   left: 50%;
   -webkit-animation: loader .6s linear;
-  -moz-animation: loader .6s linear;
-  -o-animation: loader .6s linear;
   animation: loader .6s linear;
   -webkit-animation-iteration-count: infinite;
-  -moz-animation-iteration-count: infinite;
-  -o-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
-  -webkit-border-radius: 500rem;
-  -moz-border-radius: 500rem;
   border-radius: 500rem;
   border-color: #767676 transparent transparent;
   border-style: solid;
   border-width: .3em;
-  -webkit-box-shadow: 0 0 0 1px transparent;
-  -moz-box-shadow: 0 0 0 1px transparent;
   box-shadow: 0 0 0 1px transparent; }
 
 @-webkit-keyframes loader {
@@ -946,36 +926,12 @@ input.error {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
 
-@-moz-keyframes loader {
-  from {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    transform: rotate(0); }
-  to {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-
-@-o-keyframes loader {
-  from {
-    -webkit-transform: rotate(0);
-    -o-transform: rotate(0);
-    transform: rotate(0); }
-  to {
-    -webkit-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-
 @keyframes loader {
   from {
     -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    -o-transform: rotate(0);
     transform: rotate(0); }
   to {
     -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
     transform: rotate(360deg); } }
 
 /* Font face
@@ -1094,8 +1050,6 @@ input[type=text]:focus, input[type=search]:focus, input[type=tel]:focus, input[t
 textarea:focus,
 select:focus {
   color: black;
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); }
 
 select {
@@ -1197,14 +1151,22 @@ input[type="button"] {
   opacity: 0.85; }
 
 /*end stylized-switch*/
-.icon-i_0002_slider_arrow_right, .icon-i_0005_slider_arrow_left-copy {
-  background-image: url(../img/sprite.png);
-  background-position: 0 0;
-  width: 23px;
-  height: 42px; }
+/* Sprite
+==============================================================================*/
+[class*='sprite-'] {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url(../img/sprite.png); }
 
-.icon-i_0005_slider_arrow_left-copy {
-  background-position: -25px 0; }
+.sprite-fork {
+  background-position: 0px 0px;
+  width: 32px;
+  height: 32px; }
+
+.sprite-github {
+  background-position: -34px 0px;
+  width: 32px;
+  height: 32px; }
 
 /* Icons font
 ==============================================================================*/

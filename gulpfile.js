@@ -7,10 +7,12 @@
 /**
  * Load required dependencies.
  */
-let buffer = require('vinyl-buffer');
-let runTimestamp = Math.round(Date.now()/1000);
-let gulp = require('gulp');
-let browserSync = require('browser-sync');
+let buffer = require('vinyl-buffer'),
+  runSequence = require('run-sequence'),
+  runTimestamp = Math.round(Date.now()/1000),
+  del = require('del'),
+  gulp = require('gulp'),
+  browserSync = require('browser-sync');
 
 /**
  * Load Gulp plugins listed in 'package.json' and attaches them to the `$` variable.
@@ -20,14 +22,17 @@ let $ = (require('gulp-load-plugins'))();
 /**
  * Declare variables that are use in gulpfile.js
  */
-let patch = 'html'; // name_html
-let fontName = 'Icons'; // name icons font
-let cssClassPrefix = 'i_'; // start css class for font icons
+let log = $.util.log,
+  COLORS = $.util.colors,
+  src = './src/', // development
+  build = './build/', // build for production
+  fontName = 'Icons', // name icons font
+  cssClassPrefix = 'i_'; // start css class for font icons
 
 //=============================================
 //               UTILS FUNCTIONS
 //=============================================
-let notifyOnError = function() {
+let notifyOnError = () => {
   return $.notify.onError({
     message: 'Error: <%= error.message %>',
     sound: true
@@ -38,27 +43,35 @@ let notifyOnError = function() {
 //               DECLARE PATHS
 //=============================================
 let paths = {
-  app: './'+patch+'/',
-  html: './'+patch+'/**/*.html',
-  css: './'+patch+'/css/*.css',
-  cssDir: './'+patch+'/css/',
-  scss: ['./'+patch+'/css/scss/**/*.*ss'],
-  scssDir: './'+patch+'/css/scss/',
-  js: './'+patch+'/js/**/*.js',
-  jsDir: './'+patch+'/js/',
-  iconsForSprite: './'+patch+'/img/icons-for-sprite/**/*.png',
-  iconsForSpriteDir: './'+patch+'/img/icons-for-sprite/',
-  img: './'+patch+'/img/**/*.{png,gif,jpg,jpeg,svg,ico}',
-  imgDir: './'+patch+'/img/',
-  svgForFont: './'+patch+'/img/svg-for-font/**/*.svg',
-  fonts: './'+patch+'/fonts/**/*.{eot,svg,ttf,woff,woff2}',
-  fontsDir: './'+patch+'/fonts/',
-  fontsForConvert: './'+patch+'/fonts/.tmp/*.{ttf,otf}',
+  app: src,
+  html: src+'**/*.html',
+  css: src+'css/*.css',
+  cssDir: src+'css/',
+  scss: [src+'scss/**/*.*ss'],
+  scssDir: src+'scss/',
+  js: src+'js/**/*.js',
+  jsDir: src+'js/',
+  iconsForSprite: src+'img/icons-for-sprite/**/*.png',
+  iconsForSpriteDir: src+'img/icons-for-sprite/',
+  img: src+'img/**/*.{png,gif,jpg,jpeg,svg,ico}',
+  imgDir: src+'img/',
+  svgForFont: src+'img/svg-for-font/**/*.svg',
+  svgForFontDir: src+'img/svg-for-font/',
+  fonts: src+'fonts/**/*.{eot,svg,ttf,woff,woff2}',
+  fontsDir: src+'fonts/',
+  fontsForConvert: src+'fonts/.tmp/*.{ttf,otf}',
   fontsDirVendor: 'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}',
   mail: './mail_html/*.html',
   mailCss: './mail_html/*.css',
   mailDir: './mail_html/',
   mailDirDist: './mail_html/dist/',
+  build: {
+    basePath: build,
+    fonts: build+'fonts/',
+    images: build+'img/',
+    styles: build+'css/',
+    scripts: build+'js/'
+  }
 };
 
 //=============================================
@@ -88,10 +101,6 @@ gulp.task('styles:custom', 'Compile sass files into the main.css', () => {
       errLogToConsole: true
     }))
     .on('error', notifyOnError())
-    .pipe($.autoprefixer({
-      browsers: ['> .01%'],
-      cascade: false
-    }))
     .pipe($.concat('main.css'))
     .pipe($.sourcemaps.write('../../maps'))
     .pipe(gulp.dest(paths.cssDir));
@@ -145,22 +154,17 @@ gulp.task('fonts:vendor', 'Copy fonts vendor to `fonts` directory', () => {
 gulp.task('sprite', () => {
   var spriteData =  gulp.src(paths.iconsForSprite)
     .pipe($.spritesmith({
-      //retinaSrcFilter: paths.iconsForSpriteDir+'*-2x.png',
+      //retinaSrcFilter: paths.iconsForSpriteDir+'*@2x.png',
       imgName: '../img/sprite.png',
-      //retinaImgName: '../img/sprite-2x.png',
-      cssName: '_sprite.css',
-      cssTemplate: './_sprite_template.css.tmpl',
+      //retinaImgName: '../img/sprite@2x.png',
+      cssName: '_sprite.scss',
+      cssTemplate: src+'_sprite_template.css.tmpl',
       padding: 2
-    }));
-  spriteData.img
-    .pipe(buffer())
-    .pipe($.imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}]
     }))
+    .on('error', notifyOnError());
+  spriteData.img
     .pipe(gulp.dest(paths.imgDir));
   spriteData.css
-    .pipe($.csso())
     .pipe(gulp.dest(paths.scssDir));
 });
 
@@ -173,18 +177,18 @@ gulp.task('iconfont', () => {
     .pipe($.iconfontCss({
       fontName: fontName,
       cssClass: cssClassPrefix,
-      path: '_icons_template.css.tmpl',
-      targetPath: '../css/scss/_icons.scss',
+      path: src+'_icons_template.css.tmpl',
+      targetPath: '../scss/_icons.scss',
       fontPath: '../fonts/'
     }))
-
+    .on('error', notifyOnError())
     .pipe($.iconfont({
       fontName: fontName,
       prependUnicode: true, // recommended option
       formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
       timestamp: runTimestamp // recommended to get consistent builds when watching files
     }))
-
+    .on('error', notifyOnError())
     .pipe(gulp.dest(paths.fontsDir));
 });
 
@@ -192,47 +196,37 @@ gulp.task('iconfont', () => {
  * Create web fonts
  * */
 // 1) Create web fonts
-gulp.task('fontgen', function() {
+gulp.task('fontgen', () => {
   return gulp.src(paths.fontsForConvert)
     .pipe($.fontgen({
       dest: paths.fontsDir,
       css_fontpath: "../fonts"
-    }));
+    }))
+    .on('error', notifyOnError());
 });
 // 2) Concat font css files
-gulp.task('fontgen-concat-css', ['fontgen'], function() {
+gulp.task('fontgen-concat-css', ['fontgen'], () => {
   return gulp.src(paths.fontsDir+'*.css')
     .pipe($.concat('font-face.css'))
     .pipe(gulp.dest(paths.fontsForConvert));
 });
 // 3) Remove original font css files
-gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], function() {
-  gulp.src(paths.fontsDir+'*.css')
+gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], () => {
+  return gulp.src(paths.fontsDir+'*.css')
     .pipe($.clean());
 });
 // 4) Main task
 gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
 
-/*
- * Minify PNG, JPEG, GIF, SVG images
- * */
-gulp.task('minify-images', () =>
-  gulp.src(paths.imgDir+'images/**/*.{png,gif,jpg,jpeg,svg}')
-    .pipe($.imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}]
-    }))
-    .pipe(gulp.dest(paths.imgDir))
-);
 
 /*
  * Uses Email Builder to inline css into HTML tags, send tests to Litmus, and send test emails to yourself.
  * */
-gulp.task('emailPicCopy', function() {
+gulp.task('emailPicCopy', () => {
   return gulp.src(paths.mailDir+'img/**/*.{png,jpg,jpeg}')
     .pipe(gulp.dest(paths.mailDirDist+'img'));
 });
-gulp.task('emailBuilder', ['emailPicCopy'], function() {
+gulp.task('emailBuilder', ['emailPicCopy'], () => {
   return gulp.src(paths.mail)
     .pipe($.emailBuilder().build())
     .pipe(gulp.dest(paths.mailDirDist));
@@ -246,13 +240,15 @@ gulp.task('emailBuilder', ['emailPicCopy'], function() {
  * The 'serve' task serve the dev environment.
  * */
 gulp.task('serve', ['styles:custom'], () => {
+  log(COLORS.blue('********** RUNNING SERVER **********'));
   browserSync({
     port: 8000,
     server: {
       baseDir: paths.app
     },
     notify: false,
-    open: false
+    open: false,
+    files: [paths.html, paths.scss, paths.js]
   });
 
   gulp.watch([paths.html], browserSync.reload);
@@ -270,14 +266,28 @@ gulp.task('serve', ['styles:custom'], () => {
   gulp.watch([paths.img], browserSync.reload);
 });
 
+gulp.task('serve:prod', ['build'], () => {
+  log(COLORS.blue('********** RUNNING SERVER:PROD **********'));
+  browserSync({
+    port: 8000,
+    server: {
+      baseDir: paths.build.basePath
+    },
+    notify: false,
+    open: true
+  });
+});
+
 gulp.task('serve:mail', () => {
+  log(COLORS.blue('********** RUNNING SERVER:MAIL **********'));
   browserSync({
     port: 8000,
     server: {
       baseDir: paths.mailDir
     },
     notify: false,
-    open: false
+    open: false,
+    files: [src + "css/*.css", src + "*.html", src + "js/**/*.js"]
   });
 
   gulp.watch([paths.mail], browserSync.reload);
@@ -286,3 +296,95 @@ gulp.task('serve:mail', () => {
 });
 
 gulp.task('default', ['serve']);
+
+//=============================================
+//              PRODUCTION TASKS
+//=============================================
+
+/**
+ * The 'clean' task delete 'build' directories.
+ */
+
+gulp.task('clean', 'Delete \'build\' directories', (cb) => {
+  var files;
+  files = [].concat(paths.build.basePath);
+  log('Cleaning: ' + COLORS.blue(files));
+  return del(files, cb);
+});
+
+gulp.task('copy-html', () => {
+  return gulp.src(paths.html)
+  //.pipe($.htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest(paths.build.basePath))
+    .pipe($.size({
+      title: 'html'
+    }));
+});
+
+gulp.task('copy-js', () => {
+  return gulp.src(paths.js)
+  //.pipe($.uglify())
+    .pipe(gulp.dest(paths.build.scripts))
+    .pipe($.size({
+      title: 'js'
+    }));
+});
+
+gulp.task('copy-css', () => {
+  return gulp.src(paths.css)
+    .pipe($.autoprefixer({
+      browsers: ['> .01%'],
+      cascade: false
+    }))
+    .pipe($.csso())
+    .pipe($.cssshrink())
+    .pipe($.minifyCss({
+      keepSpecialComments: 0
+    }))
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.build.styles))
+    .pipe($.size({
+      title: 'css'
+    }));
+});
+
+gulp.task('copy-images', () => {
+  return gulp.src([
+    paths.img,
+    '!' + paths.iconsForSprite,
+    '!' + paths.svgForFont
+  ])
+    .pipe($.imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}]
+    }))
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.build.images))
+    .pipe($.size({
+      title: 'images'
+    }));
+});
+
+gulp.task('copy-fonts', () => {
+  return gulp.src([
+    paths.fonts,
+    '!' + paths.fontsForConvert
+  ])
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.build.fonts))
+    .pipe($.size({
+      title: 'fonts'
+    }));
+});
+
+gulp.task('build', (callback) => {
+  log(COLORS.blue('********** RUNNING BUILD **********'));
+  return runSequence(
+    'clean',
+    ['copy-html',
+      'copy-js',
+      'copy-css',
+      'copy-images',
+      'copy-fonts'],
+    callback);
+});
