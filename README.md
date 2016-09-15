@@ -18,17 +18,18 @@ Before running any Gulp tasks:
     |---- package.json
     |---- gulpfile.js
     |---- jspm.config.js
-    |---- _icons_template.css.tmpl
-    |---- /html
+    |---- /src
     |     |---- index.html
     |     |---- main.html
+    |     /---- _icons_template.css.tmpl
+    |     /---- _sprite_template.css.tmpl
     |     |---- /js
     |     |     |---- vendor.js
     |     |     |---- jquery.main.js
     |     |---- /css
-    |     |     /---- /scss
     |     |     |---- main.css
     |     |     |---- vendor.css
+    |     |---- /scss
     |     |---- /img
     |     |     |---- /icons-for-sprite  ----->(icons for create sprite)
     |     |     |---- /svg-for-font  ----->(svg icons for create icons font)
