@@ -128,9 +128,14 @@ gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
 gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
   return gulp.src([
     'jspm_packages/github/components/jquery@2.2.4/jquery.min.js',
+
+
+
+    'jspm_packages/github/OwlFonk/OwlCarousel@1.3.2/owl-carousel/owl.carousel.js',
     'jspm_packages/github/matthewhudson/device.js@0.2.7/lib/device.min.js'
   ]).on('error', notifyOnError())
     .pipe($.concat('vendor.js'))
+    .pipe($.uglify())
     .pipe(gulp.dest(paths.jsDir));
 });
 
@@ -159,7 +164,9 @@ gulp.task('sprite', () => {
       //retinaImgName: '../img/sprite@2x.png',
       cssName: '_sprite.scss',
       cssTemplate: src+'_sprite_template.css.tmpl',
-      padding: 2
+      padding: 2,
+      algorithm: 'top-down',
+      algorithmOpts: {sort: false}
     }))
     .on('error', notifyOnError());
   spriteData.img
