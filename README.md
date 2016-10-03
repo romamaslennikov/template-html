@@ -14,36 +14,38 @@ Before running any Gulp tasks:
 
 ## Project Structure
 
-    /root
-    |---- package.json
-    |---- gulpfile.js
-    |---- jspm.config.js
-    |---- /src
-    |     |---- index.html
-    |     |---- main.html
-    |     /---- _icons_template.css.tmpl
-    |     /---- _sprite_template.css.tmpl
-    |     |---- /js
-    |     |     |---- vendor.js
-    |     |     |---- jquery.main.js
-    |     |---- /css
-    |     |     |---- main.css
-    |     |     |---- vendor.css
-    |     |---- /scss
-    |     |---- /img
-    |     |     |---- /icons-for-sprite  ----->(icons for create sprite)
-    |     |     |---- /svg-for-font  ----->(svg icons for create icons font)
-    |     |---- /fonts
-    |     |     |---- /.tmp  ----->(fonts for create web fonts)
-    |---- /mail_html
-    |     |---- index.html
-    |     |---- email.css
-    |     |---- /img
-    |     |---- /dist
+    |root
+    |     package.json
+    |     gulpfile.js
+    |     jspm.config.js
+    |     |src
+    |     |     index.html
+    |     |     main.html
+    |     |     _icons_template.css.tmpl
+    |     |     _sprite_template.css.tmpl
+    |     |     |js
+    |     |     |     vendor.js
+    |     |     |     jquery.main.js
+    |     |     |pug
+    |     |     |     main.pug
+    |     |     |css
+    |     |     |     main.css
+    |     |     |     vendor.css
+    |     |     |scss
+    |     |     |img
+    |     |     |     /icons-for-sprite  ----->(icons for create sprite)
+    |     |     |     /svg-for-font  ----->(svg icons for create icons font)
+    |     |     |fonts
+    |     |     |     |.tmp  ----->(fonts for create web fonts)
+    |     |mail_html
+    |     |     index.html
+    |     |     email.css
+    |     |     |img
+    |     |     |dist
 
 ## Version
 
-1.0.6
+1.0.7
 
 ## License
 

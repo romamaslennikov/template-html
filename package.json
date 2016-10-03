@@ -19,6 +19,7 @@
     "serve:prod": "gulp serve:prod",
     "build": "gulp build",
     "serve:mail": "gulp serve:mail",
+    "pug": "gulp pug",
     "install-deps": "npm install && jspm install",
     "go": "npm run install-deps && npm run serve"
   },
@@ -49,6 +50,7 @@
     "gulp-load-plugins": "^1.2.4",
     "gulp-minify-css": "^1.2.4",
     "gulp-notify": "^2.2.0",
+    "gulp-pug": "^3.0.4",
     "gulp-sass": "^2.3.2",
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",

@@ -1,0 +1,21 @@
+include ../mixins/_mixins
+
+doctype html
+
+html
+  include ../includes/_head
+
+  body
+    #wrapper
+      include ../includes/_header
+      // header
+
+      #content
+        block content
+      // content
+
+    // wrapper
+    include ../includes/_footer
+    // footer
+
+    include ../includes/_scripts

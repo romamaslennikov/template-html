@@ -1,0 +1,10 @@
+mixin table(n)
+  table&attributes(attributes)
+    thead
+      tr
+        - for (var x = 0; x < n; x++)
+          th
+    tbody
+      tr
+        - for (var x = 0; x < n; x++)
+          td

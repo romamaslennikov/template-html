@@ -44,6 +44,7 @@ let notifyOnError = () => {
 //=============================================
 let paths = {
   app: src,
+  pug: [src+'pug/**/*.pug', '!'+src+'pug/**/_*.pug'],
   html: src+'**/*.html',
   css: src+'css/*.css',
   cssDir: src+'css/',
@@ -86,6 +87,17 @@ $.help(gulp);
 //=============================================
 //               SUB TASKS
 //=============================================
+
+/**
+ * Compile pug files into the html.
+ */
+gulp.task('pug', 'Compile pug files into the html', () => {
+  return gulp.src(paths.pug)
+  .pipe($.pug({
+    pretty: true
+  }))
+  .pipe(gulp.dest(paths.app));
+});
 
 /**
  * Compile SASS files into the main.css.
@@ -271,6 +283,8 @@ gulp.task('serve', ['styles:custom'], () => {
   gulp.watch([paths.js], browserSync.reload);
 
   gulp.watch([paths.img], browserSync.reload);
+
+  gulp.watch([paths.pug], ['pug', browserSync.reload]);
 });
 
 gulp.task('serve:prod', ['build'], () => {
