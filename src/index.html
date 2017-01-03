@@ -2,118 +2,194 @@
 <html lang="ru">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Верстка</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <style type="text/css" rel="stylesheet">
-        .classname {
-            -webkit-animation: cssAnimation 8s linear infinite;
-            -moz-animation: cssAnimation 8s linear infinite;
-            -o-animation: cssAnimation 8s linear infinite;
-            display: inline-block;
-            text-align: center;
-            width: 20px !important;
-            height: 20px !important;
-            line-height: 20px;
-            margin: 0 !important;
-        }
-        .classname--mod{
-            -webkit-animation: cssAnimation1 6s linear infinite;
-            -moz-animation: cssAnimation1 6s linear infinite;
-            -o-animation: cssAnimation1 6s linear infinite;
-            position: relative;
-            font-size: 0.8em !important;
-            left: -13px;
-            top: 5px;
-        }
-        .classname--mod1{
-            -webkit-animation: cssAnimation1 6s linear infinite;
-            -moz-animation: cssAnimation1 6s linear infinite;
-            -o-animation: cssAnimation1 6s linear infinite;
-            position: relative;
-             font-size: 0.8em !important;
-            left: -30px;
-            top: -7px;
-        }
-        @-webkit-keyframes cssAnimation {
-            from { -webkit-transform: rotate(0deg); }
-            to { -webkit-transform: rotate(360deg); }
-        }
-        @-moz-keyframes cssAnimation {
-            from { -moz-transform: rotate(0deg); }
-            to { -moz-transform: rotate(360deg); }
-        }
-        @-o-keyframes cssAnimation {
-            from { -o-transform: rotate(0deg); }
-            to { -o-transform: rotate(360deg); }
-        }
-         @-webkit-keyframes cssAnimation1 {
-            from { -webkit-transform: rotate(360deg); }
-            to { -webkit-transform: rotate(0deg); }
-        }
-        @-moz-keyframes cssAnimation1 {
-            from { -moz-transform: rotate(360deg); }
-            to { -moz-transform: rotate(0deg); }
-        }
-        @-o-keyframes cssAnimation1 {
-            from { -o-transform: rotate(360deg); }
-            to { -o-transform: rotate(0deg); }
-        }
-        html,body{font-family:'Verdana',Arial;width:100%;height:100%;margin:0;padding:0;
-            color: rgba(134, 174, 204, 1);
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Верстка</title>
+  <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <style type="text/css" rel="stylesheet">
+    .classname {
+      -webkit-animation: cssAnimation 8s linear infinite;
+      -moz-animation: cssAnimation 8s linear infinite;
+      -o-animation: cssAnimation 8s linear infinite;
+      display: inline-block;
+      text-align: center;
+      width: 20px !important;
+      height: 20px !important;
+      line-height: 20px;
+      margin: 0 !important;
+    }
 
+    .classname--mod {
+      -webkit-animation: cssAnimation1 6s linear infinite;
+      -moz-animation: cssAnimation1 6s linear infinite;
+      -o-animation: cssAnimation1 6s linear infinite;
+      position: relative;
+      font-size: 0.8em !important;
+      left: -13px;
+      top: 5px;
+    }
 
+    .classname--mod1 {
+      -webkit-animation: cssAnimation1 6s linear infinite;
+      -moz-animation: cssAnimation1 6s linear infinite;
+      -o-animation: cssAnimation1 6s linear infinite;
+      position: relative;
+      font-size: 0.8em !important;
+      left: -30px;
+      top: -7px;
+    }
 
-            background: rgba(212,228,239,1);
-            background: -moz-radial-gradient(center, ellipse cover, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 22%, rgba(134,174,204,1) 100%);
-            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(212,228,239,1)), color-stop(22%, rgba(212,228,239,1)), color-stop(100%, rgba(134,174,204,1)));
-            background: -webkit-radial-gradient(center, ellipse cover, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 22%, rgba(134,174,204,1) 100%);
-            background: -o-radial-gradient(center, ellipse cover, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 22%, rgba(134,174,204,1) 100%);
-            background: -ms-radial-gradient(center, ellipse cover, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 22%, rgba(134,174,204,1) 100%);
-            background: radial-gradient(ellipse at center, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 22%, rgba(134,174,204,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=1 );
+    @-webkit-keyframes cssAnimation {
+      from {
+        -webkit-transform: rotate(0deg);
+      }
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
 
+    @-moz-keyframes cssAnimation {
+      from {
+        -moz-transform: rotate(0deg);
+      }
+      to {
+        -moz-transform: rotate(360deg);
+      }
+    }
 
-        }body{margin:0;padding:0;min-height:100%}a{font-weight:400;text-decoration:underline;color:#000;font-family:"Trebuchet MS";font-size:14px;letter-spacing:.05em;-webkit-transition:all .5s ease-out;-moz-transition:all .5s ease-out;-ms-transition:all .5s ease-out;-o-transition:all .5s ease-out;transition:all .5s ease-out;font-weight:300;opacity:1;text-shadow:1px 1px 1px rgba(0,0,0,0);height:15px;display:inline-block;line-height:22px}a:visited{color:#999;outline:none;border:0}a:hover{color:red;text-decoration:none;letter-spacing:.25em;-webkit-transition:all .2s ease-out;-moz-transition:all .2s ease-out;-ms-transition:all .2s ease-out;-o-transition:all .2s ease-out;transition:all .2s ease-out;font-weight:700;opacity:.7;text-shadow:1px 1px 1px rgba(0,0,0,0.75);font-size:22px}a:first-letter{color:#000}h1{font-size:20px}</style>
+    @-o-keyframes cssAnimation {
+      from {
+        -o-transform: rotate(0deg);
+      }
+      to {
+        -o-transform: rotate(360deg);
+      }
+    }
+
+    @-webkit-keyframes cssAnimation1 {
+      from {
+        -webkit-transform: rotate(360deg);
+      }
+      to {
+        -webkit-transform: rotate(0deg);
+      }
+    }
+
+    @-moz-keyframes cssAnimation1 {
+      from {
+        -moz-transform: rotate(360deg);
+      }
+      to {
+        -moz-transform: rotate(0deg);
+      }
+    }
+
+    @-o-keyframes cssAnimation1 {
+      from {
+        -o-transform: rotate(360deg);
+      }
+      to {
+        -o-transform: rotate(0deg);
+      }
+    }
+
+    html, body {
+      font-family: 'Verdana', Arial;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      color: rgba(134, 174, 204, 1);
+
+      background: rgba(212, 228, 239, 1);
+      background: -moz-radial-gradient(center, ellipse cover, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
+      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(212, 228, 239, 1)), color-stop(22%, rgba(212, 228, 239, 1)), color-stop(100%, rgba(134, 174, 204, 1)));
+      background: -webkit-radial-gradient(center, ellipse cover, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
+      background: -o-radial-gradient(center, ellipse cover, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
+      background: -ms-radial-gradient(center, ellipse cover, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
+      background: radial-gradient(ellipse at center, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=1);
+
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    a {
+      font-weight: 400;
+      text-decoration: underline;
+      color: #000;
+      font-family: "Trebuchet MS";
+      font-size: 14px;
+      letter-spacing: .05em;
+      -webkit-transition: all .5s ease-out;
+      -moz-transition: all .5s ease-out;
+      -ms-transition: all .5s ease-out;
+      -o-transition: all .5s ease-out;
+      transition: all .5s ease-out;
+      font-weight: 300;
+      opacity: 1;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0);
+      height: 15px;
+      display: inline-block;
+      line-height: 22px
+    }
+
+    a:visited {
+      color: #999;
+      outline: none;
+      border: 0
+    }
+
+    a:hover {
+      color: red;
+      text-decoration: none;
+      letter-spacing: .25em;
+      -webkit-transition: all .2s ease-out;
+      -moz-transition: all .2s ease-out;
+      -ms-transition: all .2s ease-out;
+      -o-transition: all .2s ease-out;
+      transition: all .2s ease-out;
+      font-weight: 700;
+      opacity: .7;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+      font-size: 22px
+    }
+
+    a:first-letter {
+      color: #000
+    }
+
+    h1 {
+      font-size: 20px
+    }</style>
 </head>
 <body>
-
-<table style="width:100%;height:100%;">
-    <tbody>
-    <tr>
-        <td style="text-align: center; vertical-align: middle;padding: 0 10px;" >
-            <div class="ui text container">
-                <noindex>
-                    <h1 class="ui header">Верстка "Site name" 00.00.0000</h1>
-                    <p>
-                        <i class="checkmark icon"></i>
-                        <a href="main.html" target="_blank">Главная страница</a>
-                    </p>
+  <noindex>
+    <h1 class="ui header">Верстка "Site name" 00.00.0000</h1>
+    <p>
+      <i class="checkmark icon"></i>
+      <a href="main.html" target="_blank">Главная страница</a>
+    </p>
 
 
-
-
-
-
-
-
-
-
-
-                    <p style="padding-left: 30px;">
-                        <i class="classname icon setting"></i><i class="classname classname--mod icon setting"></i><i class="classname classname--mod1 icon setting"></i>
-                    </p>
-                </noindex>
-                <mark style="background:none;font-weight: normal; font-size: 12px; color:#000; font-family: Verdana;">
-                    Front-end development:
-                    maslennikov.rv@gmail.com
-                </mark>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
+    <p style="padding-left: 30px;">
+      <i class="classname icon setting"></i><i class="classname classname--mod icon setting"></i><i
+    class="classname classname--mod1 icon setting"></i>
+    </p>
+  </noindex>
+  <mark style="background:none;font-weight: normal; font-size: 12px; color:#000; font-family: Verdana;">
+    Front-end development:
+    maslennikov.rv@gmail.com
+  </mark>
 </body>
 </html>

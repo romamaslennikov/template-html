@@ -140,9 +140,6 @@ gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
 gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
   return gulp.src([
     'jspm_packages/github/components/jquery@2.2.4/jquery.min.js',
-
-
-
     'jspm_packages/github/OwlFonk/OwlCarousel@1.3.2/owl-carousel/owl.carousel.js',
     'jspm_packages/github/matthewhudson/device.js@0.2.7/lib/device.min.js'
   ]).on('error', notifyOnError())
@@ -327,7 +324,7 @@ gulp.task('default', ['serve']);
  */
 
 gulp.task('clean', 'Delete \'build\' directories', (cb) => {
-  var files;
+  let files;
   files = [].concat(paths.build.basePath);
   log('Cleaning: ' + COLORS.blue(files));
   return del(files, cb);
@@ -357,8 +354,6 @@ gulp.task('copy-css', () => {
       browsers: ['> .01%'],
       cascade: false
     }))
-    .pipe($.csso())
-    .pipe($.cssshrink())
     .pipe($.minifyCss({
       keepSpecialComments: 0
     }))
@@ -375,10 +370,7 @@ gulp.task('copy-images', () => {
     '!' + paths.iconsForSprite,
     '!' + paths.svgForFont
   ])
-    .pipe($.imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}]
-    }))
+    .pipe($.image())
     .on('error', notifyOnError())
     .pipe(gulp.dest(paths.build.images))
     .pipe($.size({
