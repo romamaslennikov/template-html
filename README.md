@@ -17,7 +17,6 @@ Before running any Gulp tasks:
     |root
     |     package.json
     |     gulpfile.js
-    |     jspm.config.js
     |     |src
     |     |     index.html
     |     |     main.html
@@ -45,7 +44,7 @@ Before running any Gulp tasks:
 
 ## Version
 
-1.0.8
+1.1.0
 
 ## License
 

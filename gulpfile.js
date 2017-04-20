@@ -123,7 +123,7 @@ gulp.task('styles:custom', 'Compile sass files into the main.css', () => {
  */
 gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
   return gulp.src([
-    'jspm_packages/github/twbs/bootstrap@3.3.7/css/bootstrap.min.css'
+    ''
   ])
     .pipe($.sass({
       outputStyle: 'compressed',
@@ -139,9 +139,7 @@ gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
  */
 gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
   return gulp.src([
-    'jspm_packages/github/components/jquery@2.2.4/jquery.min.js',
-    'jspm_packages/github/OwlFonk/OwlCarousel@1.3.2/owl-carousel/owl.carousel.js',
-    'jspm_packages/github/matthewhudson/device.js@0.2.7/lib/device.min.js'
+    ''
   ]).on('error', notifyOnError())
     .pipe($.concat('vendor.js'))
     .pipe($.uglify())
