@@ -2,7 +2,7 @@
 gulp: html, css, js, create sprite, svg to fonts, create web fonts,
  minify PNG, JPEG, GIF and SVG images, email builder.
 
-![AngularJS plus Gulp](app.jpg)
+![](app.jpg)
 ## Installation
 
 Before running any Gulp tasks:
