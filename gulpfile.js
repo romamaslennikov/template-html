@@ -12,6 +12,8 @@ let buffer = require('vinyl-buffer'),
   runTimestamp = Math.round(Date.now()/1000),
   del = require('del'),
   gulp = require('gulp'),
+  gutil = require('gulp-util'),
+  ftp = require('vinyl-ftp'),
   browserSync = require('browser-sync');
 
 /**
@@ -44,8 +46,8 @@ let notifyOnError = () => {
 //=============================================
 let paths = {
   app: src,
-  pug: [src+'pug/**/*.pug', '!'+src+'pug/**/_*.pug'],
-  html: src+'**/*.html',
+  pug: [src+'pug/**/*.pug'],
+  html: [src+'*.html'],
   css: src+'css/*.css',
   cssDir: src+'css/',
   scss: [src+'scss/**/*.*ss'],
@@ -265,7 +267,7 @@ gulp.task('serve', ['styles:custom'], () => {
     files: [paths.html, paths.scss, paths.js]
   });
 
-  gulp.watch([paths.html], browserSync.reload);
+  //gulp.watch([paths.html], browserSync.reload);
 
   gulp.watch([paths.iconsForSprite], ['sprite', browserSync.reload]);
 
@@ -398,4 +400,26 @@ gulp.task('build', (callback) => {
       'copy-images',
       'copy-fonts'],
     callback);
+});
+
+/**
+ * Deploy
+ */
+gulp.task('deploy', ['build'], () => {
+
+  let conn = ftp.create({
+    host: 'ftp.zzcode.zz.mu',
+    user: 'u111549625',
+    password: '4CqWcwMfPZ', // oops)
+    parallel: 4,
+    log: gutil.log
+  });
+
+  let globs = [
+    'build'
+  ];
+
+  return gulp.src(globs, {base: '.', buffer: false})
+    .pipe(conn.newer('/public_html/test')) // only upload newer files
+    .pipe(conn.dest('/public_html/test'));
 });
