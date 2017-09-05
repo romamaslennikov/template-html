@@ -44,7 +44,7 @@ Before running any Gulp tasks:
 
 ## Version
 
-1.1.1
+1.1.2
 
 ## License
 

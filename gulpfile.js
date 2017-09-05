@@ -27,7 +27,7 @@ let $ = (require('gulp-load-plugins'))();
 let log = $.util.log,
   COLORS = $.util.colors,
   src = './src/', // development
-  build = './build/', // build for production
+  build = './dist/', // build for production
   fontName = 'Icons', // name icons font
   cssClassPrefix = 'i_'; // start css class for font icons
 
@@ -416,7 +416,7 @@ gulp.task('deploy', ['build'], () => {
   });
 
   let globs = [
-    'build'
+    'dist'
   ];
 
   return gulp.src(globs, {base: '.', buffer: false})
