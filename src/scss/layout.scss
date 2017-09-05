@@ -7,100 +7,10 @@
 @import "sprite.scss";
 @import "icons";
 
-/* Template styles
-==============================================================================*/
-html, body {
-  font: $fz-base/$line-height-base $family-base;
-  height: 100%;
-  width: 100%;
-  color: $color-base;
-  background: $bg-color-base;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "pages/main";
 
-*, *:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* Wrapper
------------------------------------------------------------*/
-#wrapper {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto;
-  @include flexbox;
-  @include flex-flow(column nowrap);
-  @include justify-content(flex-start);
-}
-
-/* Header
------------------------------------------------------------*/
-#header {
-}
-
-.header-center {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* Container
------------------------------------------------------------*/
-#content {
-  zoom: 1;
-  @include flex(1);
-}
-
-.columns {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-  @include flexbox;
-}
-
-.center {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.columns-center {
-  @include flex(1);
-  @include order(2);
-}
-
-/* Sidebar
------------------------------------------------------------*/
-.columns-left {
-  width: 250px;
-  background: #808080;
-  position: relative;
-  @include order(1);
-}
-
-.columns-right {
-  width: 250px;
-  background: #808040;
-  position: relative;
-  @include order(3);
-}
-
-/* Footer
------------------------------------------------------------*/
-#footer {
-  clear: both;
-  background: none repeat scroll 0 0 #eee;
-}
-
-.footer-center {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-}
+@import "retina";
+@import "screens";
 
 
 

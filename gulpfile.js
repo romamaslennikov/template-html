@@ -47,6 +47,7 @@ let notifyOnError = () => {
 let paths = {
   app: src,
   pug: [src+'pug/**/*.pug'],
+  pugIgnorePartials: [src+'pug/**/*.pug', '!'+src+'pug/**/_*.pug'],
   html: [src+'*.html'],
   css: src+'css/*.css',
   cssDir: src+'css/',
@@ -94,7 +95,7 @@ $.help(gulp);
  * Compile pug files into the html.
  */
 gulp.task('pug', 'Compile pug files into the html', () => {
-  return gulp.src(paths.pug)
+  return gulp.src(paths.pugIgnorePartials)
   .pipe($.pug({
     pretty: true
   }))
@@ -172,7 +173,7 @@ gulp.task('sprite', () => {
       imgName: '../img/sprite.png',
       //retinaImgName: '../img/sprite@2x.png',
       cssName: '_sprite.scss',
-      cssTemplate: src+'_sprite_template.css.tmpl',
+      cssTemplate: src+'icons_build/_sprite_template.css.tmpl',
       padding: 2,
       algorithm: 'top-down',
       algorithmOpts: {sort: false}
@@ -193,7 +194,7 @@ gulp.task('iconfont', () => {
     .pipe($.iconfontCss({
       fontName: fontName,
       cssClass: cssClassPrefix,
-      path: src+'_icons_template.css.tmpl',
+      path: src+'icons_build/_icons_template.css.tmpl',
       targetPath: '../scss/_icons.scss',
       fontPath: '../fonts/'
     }))
