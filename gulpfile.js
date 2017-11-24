@@ -7,8 +7,7 @@
 /**
  * Load required dependencies.
  */
-let buffer = require('vinyl-buffer'),
-  runSequence = require('run-sequence'),
+let runSequence = require('run-sequence'),
   runTimestamp = Math.round(Date.now()/1000),
   del = require('del'),
   gulp = require('gulp'),
@@ -29,7 +28,7 @@ let log = $.util.log,
   src = './src/', // development
   build = './dist/', // build for production
   fontName = 'Icons', // name icons font
-  cssClassPrefix = 'i_'; // start css class for font icons
+  cssClassPrefix = 'i_'; // class for font icons
 
 //=============================================
 //               UTILS FUNCTIONS
@@ -167,7 +166,7 @@ gulp.task('fonts:vendor', 'Copy fonts vendor to `fonts` directory', () => {
  * Create sprite
  * */
 gulp.task('sprite', () => {
-  var spriteData =  gulp.src(paths.iconsForSprite)
+  let spriteData =  gulp.src(paths.iconsForSprite)
     .pipe($.spritesmith({
       //retinaSrcFilter: paths.iconsForSpriteDir+'*@2x.png',
       imgName: '../img/sprite.png',
