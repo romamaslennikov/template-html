@@ -1,5 +1,15 @@
 extends layouts/_default
 
+block data
+  -
+    vars = {
+      header_class: 'header-bg-home',
+      title: 'Site name | home'
+    }
+
+block header
+  include includes/_header
+
 block content
   .columns
     .columns-center

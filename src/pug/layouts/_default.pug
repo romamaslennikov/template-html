@@ -1,5 +1,7 @@
 include ../mixins/_mixins
 
+block data
+
 doctype html
 
 html(lang='en')
@@ -7,15 +9,11 @@ html(lang='en')
 
   body
     #wrapper
-      include ../includes/_header
-      // header
+      block header
 
       #content
         block content
-      // content
 
       include ../includes/_footer
-      // footer
-    // wrapper
 
     include ../includes/_scripts
