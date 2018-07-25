@@ -13,3 +13,4 @@ gen
 /заметки
 /build/
 /dist/
+/package-lock.json

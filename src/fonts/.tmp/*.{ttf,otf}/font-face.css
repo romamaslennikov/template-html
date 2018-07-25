@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "DINMittelEFEL-MediumItalic";
+    src: url("../fonts/test.eot");
+    src: url("../fonts/test.eot?#iefix") format("embedded-opentype"),
+         url("../fonts/test.woff2") format("woff2"),
+         url("../fonts/test.woff") format("woff"),
+         url("../fonts/test.ttf") format("ttf"),
+         url("../fonts/test.svg#DINMittelEFEL-MediumItalic") format("svg");
+    font-style: italic;
+    font-weight: 300;
+}
