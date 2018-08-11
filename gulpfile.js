@@ -8,7 +8,7 @@
  * Load required dependencies.
  */
 let runSequence = require('run-sequence'),
-  runTimestamp = Math.round(Date.now()/1000),
+  runTimestamp = Math.round(Date.now() / 1000),
   del = require('del'),
   gulp = require('gulp'),
   gutil = require('gulp-util'),
@@ -45,24 +45,24 @@ let notifyOnError = () => {
 //=============================================
 let paths = {
   app: src,
-  pug: [src+'pug/**/*.pug'],
-  pugIgnorePartials: [src+'pug/**/*.pug', '!'+src+'pug/**/_*.pug'],
-  html: [src+'*.html'],
-  css: src+'css/*.css',
-  cssDir: src+'css/',
-  scss: [src+'scss/**/*.*ss'],
-  scssDir: src+'scss/',
-  js: src+'js/**/*.js',
-  jsDir: src+'js/',
-  iconsForSprite: src+'img/icons-for-sprite/**/*.png',
-  iconsForSpriteDir: src+'img/icons-for-sprite/',
-  img: src+'img/**/*.{png,gif,jpg,jpeg,svg,ico}',
-  imgDir: src+'img/',
-  svgForFont: src+'img/svg-for-font/**/*.svg',
-  svgForFontDir: src+'img/svg-for-font/',
-  fonts: src+'fonts/**/*.{eot,svg,ttf,woff,woff2}',
-  fontsDir: src+'fonts/',
-  fontsForConvert: src+'fonts/.tmp/*.{ttf,otf}',
+  pug: [src + 'pug/**/*.pug'],
+  pugIgnorePartials: [src + 'pug/**/*.pug', '!' + src + 'pug/**/_*.pug'],
+  html: [src + '*.html'],
+  css: src + 'css/*.css',
+  cssDir: src + 'css/',
+  scss: [src + 'scss/**/*.*ss'],
+  scssDir: src + 'scss/',
+  js: src + 'js/**/*.js',
+  jsDir: src + 'js/',
+  iconsForSprite: src + 'img/icons-for-sprite/**/*.png',
+  iconsForSpriteDir: src + 'img/icons-for-sprite/',
+  img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico}',
+  imgDir: src + 'img/',
+  svgForFont: src + 'img/svg-for-font/**/*.svg',
+  svgForFontDir: src + 'img/svg-for-font/',
+  fonts: src + 'fonts/**/*.{eot,svg,ttf,woff,woff2}',
+  fontsDir: src + 'fonts/',
+  fontsForConvert: src + 'fonts/.tmp/*.{ttf,otf}',
   fontsDirVendor: 'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}',
   mail: './mail_html/*.html',
   mailCss: './mail_html/*.css',
@@ -70,10 +70,10 @@ let paths = {
   mailDirDist: './mail_html/dist/',
   build: {
     basePath: build,
-    fonts: build+'fonts/',
-    images: build+'img/',
-    styles: build+'css/',
-    scripts: build+'js/'
+    fonts: build + 'fonts/',
+    images: build + 'img/',
+    styles: build + 'css/',
+    scripts: build + 'js/'
   }
 };
 
@@ -95,10 +95,10 @@ $.help(gulp);
  */
 gulp.task('pug', 'Compile pug files into the html', () => {
   return gulp.src(paths.pugIgnorePartials)
-  .pipe($.pug({
-    pretty: true
-  }))
-  .pipe(gulp.dest(paths.app));
+    .pipe($.pug({
+      pretty: true
+    }))
+    .pipe(gulp.dest(paths.app));
 });
 
 /**
@@ -166,13 +166,13 @@ gulp.task('fonts:vendor', 'Copy fonts vendor to `fonts` directory', () => {
  * Create sprite
  * */
 gulp.task('sprite', () => {
-  let spriteData =  gulp.src(paths.iconsForSprite)
+  let spriteData = gulp.src(paths.iconsForSprite)
     .pipe($.spritesmith({
       //retinaSrcFilter: paths.iconsForSpriteDir+'*@2x.png',
       imgName: '../img/sprite.png',
       //retinaImgName: '../img/sprite@2x.png',
       cssName: '_sprite.scss',
-      cssTemplate: src+'icons_build/_sprite_template.css.tmpl',
+      cssTemplate: src + 'icons_build/_sprite_template.css.tmpl',
       padding: 2,
       algorithm: 'top-down',
       algorithmOpts: {sort: false}
@@ -193,7 +193,7 @@ gulp.task('iconfont', () => {
     .pipe($.iconfontCss({
       fontName: fontName,
       cssClass: cssClassPrefix,
-      path: src+'icons_build/_icons_template.css.tmpl',
+      path: src + 'icons_build/_icons_template.css.tmpl',
       targetPath: '../scss/_icons.scss',
       fontPath: '../fonts/'
     }))
@@ -222,13 +222,13 @@ gulp.task('fontgen', () => {
 });
 // 2) Concat font css files
 gulp.task('fontgen-concat-css', ['fontgen'], () => {
-  return gulp.src(paths.fontsDir+'*.css')
+  return gulp.src(paths.fontsDir + '*.css')
     .pipe($.concat('font-face.css'))
     .pipe(gulp.dest(paths.fontsForConvert));
 });
 // 3) Remove original font css files
 gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], () => {
-  return gulp.src(paths.fontsDir+'*.css')
+  return gulp.src(paths.fontsDir + '*.css')
     .pipe($.clean());
 });
 // 4) Main task
@@ -239,8 +239,8 @@ gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
  * Uses Email Builder to inline css into HTML tags, send tests to Litmus, and send test emails to yourself.
  * */
 gulp.task('emailPicCopy', () => {
-  return gulp.src(paths.mailDir+'img/**/*.{png,jpg,jpeg}')
-    .pipe(gulp.dest(paths.mailDirDist+'img'));
+  return gulp.src(paths.mailDir + 'img/**/*.{png,jpg,jpeg}')
+    .pipe(gulp.dest(paths.mailDirDist + 'img'));
 });
 gulp.task('emailBuilder', ['emailPicCopy'], () => {
   return gulp.src(paths.mail)
@@ -364,19 +364,28 @@ gulp.task('copy-css', () => {
     }));
 });
 
-gulp.task('copy-images', () => {
-  return gulp.src([
+gulp.task('copy-images', () =>
+  gulp.src([
     paths.img,
     '!' + paths.iconsForSprite,
     '!' + paths.svgForFont
   ])
-    .pipe($.image())
+    .pipe($.imagemin([
+      $.imagemin.gifsicle({interlaced: true}),
+      $.imagemin.jpegtran({progressive: true}),
+      $.imagemin.optipng({optimizationLevel: 5}),
+      $.imagemin.svgo({
+        plugins: [
+          {removeViewBox: true},
+          {cleanupIDs: false}
+        ]
+      })
+    ]))
     .on('error', notifyOnError())
     .pipe(gulp.dest(paths.build.images))
     .pipe($.size({
       title: 'images'
-    }));
-});
+    })));
 
 gulp.task('copy-fonts', () => {
   return gulp.src([
