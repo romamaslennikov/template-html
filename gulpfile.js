@@ -370,17 +370,15 @@ gulp.task('copy-images', () =>
     '!' + paths.iconsForSprite,
     '!' + paths.svgForFont
   ])
-    .pipe($.imagemin([
-      $.imagemin.gifsicle({interlaced: true}),
-      $.imagemin.jpegtran({progressive: true}),
-      $.imagemin.optipng({optimizationLevel: 5}),
-      $.imagemin.svgo({
-        plugins: [
-          {removeViewBox: true},
-          {cleanupIDs: false}
-        ]
-      })
-    ]))
+    .pipe(imagemin({
+      interlaced: true,
+      progressive: true,
+      optimizationLevel: 5,
+      svgoPlugins: [
+        {removeViewBox: true},
+        {cleanupIDs: false}
+      ]
+    }))
     .on('error', notifyOnError())
     .pipe(gulp.dest(paths.build.images))
     .pipe($.size({
