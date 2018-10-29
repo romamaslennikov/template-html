@@ -418,15 +418,15 @@ gulp.task('deploy', ['build'], () => {
     host: 'ftp.zzcode.zz.mu',
     user: 'u111549625',
     password: '4CqWcwMfPZ', // oops)
-    parallel: 4,
+    parallel: 10,
     log: gutil.log
   });
 
   let globs = [
-    'dist'
+    '**'
   ];
 
-  return gulp.src(globs, {base: '.', buffer: false})
+  return gulp.src(globs, {base: './dist',cwd: './dist', buffer: false})
     .pipe(conn.newer('/public_html/test')) // only upload newer files
     .pipe(conn.dest('/public_html/test'));
 });

@@ -1,9 +1,11 @@
+- var versoin = Math.floor(Math.random() * 1000000000) + 1;
+
 head
   meta(charset='utf-8')
   meta(http-equiv='X-UA-Compatible', content='IE=edge')
-  meta(name='viewport', content='width=1000')
+  meta(content='width=device-width, initial-scale=1.0' name='viewport')
   title=vars.title
   link(rel='shortcut icon', href='/favicon.ico', type='image/x-icon')
   link(rel='icon', href='/favicon.ico', type='image/x-icon')
-  link(href='css/vendor.css', rel='stylesheet')
-  link(href='css/main.css', rel='stylesheet')
+  link(href='css/main.css?v=' + versoin, rel='stylesheet')
+  link(href='css/vendor.css?v=' + versoin, rel='stylesheet')
