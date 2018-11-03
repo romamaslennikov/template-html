@@ -13,7 +13,8 @@ let runSequence = require('run-sequence'),
   gulp = require('gulp'),
   gutil = require('gulp-util'),
   ftp = require('vinyl-ftp'),
-  browserSync = require('browser-sync');
+  browserSync = require('browser-sync'),
+  svgSprite = require('gulp-svg-sprites');
 
 /**
  * Load Gulp plugins listed in 'package.json' and attaches them to the `$` variable.
@@ -59,6 +60,7 @@ let paths = {
   img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico}',
   imgDir: src + 'img/',
   svgForFont: src + 'img/svg-for-font/**/*.svg',
+  svgForSprite: src + 'img/svg-for-sprite/**/*.svg',
   svgForFontDir: src + 'img/svg-for-font/',
   fonts: src + 'fonts/**/*.{eot,svg,ttf,woff,woff2}',
   fontsDir: src + 'fonts/',
@@ -184,6 +186,17 @@ gulp.task('sprite', () => {
     .pipe(gulp.dest(paths.scssDir));
 });
 
+/*
+ * Create svg sprite
+ * */
+
+gulp.task('spriteSvg', () => {
+  return gulp.src(paths.svgForSprite)
+    .pipe(svgSprite({
+      padding: 20
+    }))
+    .pipe(gulp.dest(paths.imgDir));
+})
 
 /*
  * Create icons font
@@ -233,7 +246,6 @@ gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], () => {
 });
 // 4) Main task
 gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
-
 
 /*
  * Uses Email Builder to inline css into HTML tags, send tests to Litmus, and send test emails to yourself.
@@ -426,7 +438,7 @@ gulp.task('deploy', ['build'], () => {
     '**'
   ];
 
-  return gulp.src(globs, {base: './dist',cwd: './dist', buffer: false})
+  return gulp.src(globs, {base: './dist', cwd: './dist', buffer: false})
     .pipe(conn.newer('/public_html/test')) // only upload newer files
     .pipe(conn.dest('/public_html/test'));
 });
