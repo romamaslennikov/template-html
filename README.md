@@ -34,6 +34,7 @@ Before running any Gulp tasks:
     |     |     |scss
     |     |     |img
     |     |     |     /icons-for-sprite  ----->(icons for create sprite)
+    |     |     |     /svg-for-sprite  ----->(icons for create sprite svg)
     |     |     |     /svg-for-font  ----->(svg icons for create icons font)
     |     |     |fonts
     |     |     |     |.tmp  ----->(fonts for create web fonts)
@@ -45,7 +46,7 @@ Before running any Gulp tasks:
 
 ## Version
 
-1.1.4
+1.1.5
 
 ## License
 
