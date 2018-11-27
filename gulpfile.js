@@ -173,7 +173,7 @@ gulp.task('sprite', () => {
       //retinaSrcFilter: paths.iconsForSpriteDir+'*@2x.png',
       imgName: '../img/sprite.png',
       //retinaImgName: '../img/sprite@2x.png',
-      cssName: '_sprite.scss',
+      cssName: '_sprite.sass',
       cssTemplate: src + 'icons_build/_sprite_template.css.tmpl',
       padding: 2,
       algorithm: 'top-down',

@@ -1,4 +1,4 @@
-/*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
 /**
@@ -18,6 +18,12 @@ html {
  */
 body {
   margin: 0; }
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block; }
 
 /**
  * Correct the font size and margin on `h1` elements within `section` and
@@ -297,8 +303,6 @@ template {
 [hidden] {
   display: none; }
 
-/* Meta classes
-==============================================================================*/
 .reset {
   margin: 0;
   padding: 0;
@@ -345,59 +349,24 @@ template {
   opacity: .3;
   filter: alpha(opacity=30); }
 
-.error {
-  color: red; }
-
-input.error {
-  outline: 1px solid red;
-  outline-offset: -1px; }
-
-.va-top {
-  vertical-align: top !important; }
-
-.red {
-  color: red; }
-
-.blue {
-  color: blue; }
-
-.yellow {
-  color: yellow; }
-
-.green {
-  color: green; }
-
-.gray {
-  color: gray; }
-
-.orange {
-  color: orange; }
-
-.f-left, .float-left, .left {
+.f-left {
   position: relative;
   float: left; }
 
-.f-right, .float-right, .right {
+.f-right {
   position: relative;
   float: right; }
 
-.f-center, .float-center {
-  position: relative;
-  float: none;
-  margin: 0 auto;
-  padding: 0 10px;
-  width: 980px; }
-
-.t-center, .text-center {
+.text-center {
   text-align: center; }
 
-.t-left, .text-left {
+.text-left {
   text-align: left; }
 
-.t-right, .text-right {
+.text-right {
   text-align: right; }
 
-.t-justify, .text-justify {
+.text-justify {
   text-align: justify; }
 
 .col {
@@ -768,29 +737,6 @@ input.error {
   margin-bottom: 15px;
   padding: 0 15px; }
 
-.display-table {
-  display: table; }
-
-.cell, .to-middle {
-  display: table-cell;
-  vertical-align: middle;
-  width: 100%; }
-
-.btn {
-  position: relative;
-  outline: none;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font: 14px Arial, sans-serif;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block; }
-  .btn:hover {
-    border: 1px solid #ddd; }
-  .btn:active {
-    border: 1px solid #555; }
-
 .ajax-loader {
   background-color: rgba(255, 255, 255, 0.9);
   position: absolute;
@@ -802,7 +748,6 @@ input.error {
   z-index: 1000; }
 
 .ajax-loader div {
-  /*display: none;*/
   position: absolute;
   top: 50%;
   left: 50%;
@@ -860,12 +805,8 @@ input.error {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
 
-/* Font face
-==============================================================================*/
-/* Typography
-==============================================================================*/
-/* H Group
------------------------------------------------------------*/
+/* Font face==============================================================================*/
+/* H Group----------------------------------------------------------- * / */
 h1, .h1 {
   font-weight: bold;
   font-size: 1.8em; }
@@ -882,8 +823,7 @@ h4, h5, h6, .h4, .h5, .h6 {
   font-weight: bold;
   font-size: 1.2em; }
 
-/* Links
------------------------------------------------------------*/
+/* Links----------------------------------------------------------- * / */
 a {
   color: #00bbee;
   text-decoration: none; }
@@ -898,8 +838,7 @@ html:not(.desktop) a[href^=tel] {
   text-decoration: underline;
   color: inherit; }
 
-/* Form tags styles
------------------------------------------------------------*/
+/* Form tags styles----------------------------------------------------------- * / */
 input[type=text], input[type=search], input[type=tel], input[type=email], input[type=password],
 textarea,
 select {
@@ -920,56 +859,36 @@ select {
 textarea {
   overflow: auto; }
 
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder,
-select::-webkit-input-placeholder {
-  color: #ccc; }
+input.placeholder, textarea.placeholder {
+  color: #000; }
 
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder,
-select:-ms-input-placeholder {
-  color: #ccc; }
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #000; }
 
-input:-moz-placeholder,
-textarea:-moz-placeholder,
-select:-moz-placeholder {
-  color: #ccc;
-  opacity: 1; }
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1;
+  color: #000; }
 
-input::-moz-placeholder,
-textarea::-moz-placeholder,
-select::-moz-placeholder {
-  color: #ccc;
-  opacity: 1; }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #000; }
 
-input.placeholder,
-textarea.placeholder,
-select.placeholder {
-  color: #ccc; }
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #000; }
 
-input:focus:-moz-placeholder,
-textarea:focus:-moz-placeholder,
-select:focus:-moz-placeholder {
+input:focus.placeholder, textarea:focus.placeholder {
   color: transparent !important; }
 
-input:focus::-moz-placeholder,
-textarea:focus::-moz-placeholder,
-select:focus::-moz-placeholder {
+input:focus:-moz-placeholder, textarea:focus:-moz-placeholder {
   color: transparent !important; }
 
-input:focus:-ms-input-placeholder,
-textarea:focus:-ms-input-placeholder,
-select:focus:-ms-input-placeholder {
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {
+  opacity: 1;
   color: transparent !important; }
 
-input:focus::-webkit-input-placeholder,
-textarea:focus::-webkit-input-placeholder,
-select:focus::-webkit-input-placeholder {
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
   color: transparent !important; }
 
-input.placeholder:focus,
-textarea.placeholder:focus,
-select.placeholder:focus {
+input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder {
   color: transparent !important; }
 
 input[type=text]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=email]:focus, input[type=password]:focus,
@@ -978,21 +897,11 @@ select:focus {
   color: black;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); }
 
-select {
-  padding: 0; }
-
-.button,
-button,
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-  position: relative;
-  text-decoration: none;
-  outline: none;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  font: 14px Arial, sans-serif, sans-serif;
-  display: inline-block; }
+button:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active {
+  outline: none; }
 
 /*stylized-switch*/
 .switch {
@@ -1029,8 +938,6 @@ input[type="button"] {
   bottom: 0;
   background: #fff;
   border: 1px solid #ccc;
-  -webkit-border-radius: 30px 30px 30px 30px;
-  -moz-border-radius: 30px 30px 30px 30px;
   border-radius: 30px 30px 30px 30px; }
 
 /*not checked checkbox*/
@@ -1041,24 +948,18 @@ input[type="button"] {
   right: 0;
   bottom: 0;
   background: #fff;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  -moz-border-radius: 3px 3px 3px 3px;
   border-radius: 3px 3px 3px 3px;
   border: 1px solid #ccc; }
 
 /*checked radio*/
 .switch input[type=radio]:checked + i {
   background: #ccc;
-  -webkit-box-shadow: 0 0 0 3px #fff inset;
-  -moz-box-shadow: 0 0 0 3px #fff inset;
   box-shadow: 0 0 0 3px #fff inset;
   border: 1px solid #ccc; }
 
 /*checked checkbox*/
 .switch input[type=checkbox]:checked + i {
   background: #ccc;
-  -webkit-box-shadow: 0 0 0 3px #fff inset;
-  -moz-box-shadow: 0 0 0 3px #fff inset;
   box-shadow: 0 0 0 3px #fff inset;
   border: 1px solid #ccc; }
 
@@ -1077,8 +978,7 @@ input[type="button"] {
   opacity: 0.85; }
 
 /*end stylized-switch*/
-/* Sprite
-==============================================================================*/
+/* Sprite==============================================================================*/
 [class*='sprite-'] {
   display: inline-block;
   vertical-align: middle;
@@ -1090,12 +990,11 @@ input[type="button"] {
   height: 32px; }
 
 .sprite-github {
-  background-position: -34px 0px;
+  background-position: 0px -34px;
   width: 32px;
   height: 32px; }
 
-/* Icons font
-==============================================================================*/
+/* Icons font==============================================================================*/
 @font-face {
   font-family: 'Icons';
   src: url("../fonts/Icons.eot");
@@ -1112,23 +1011,21 @@ input[type="button"] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.i_icon-alert:before {
+.i_arrow-left:before {
   content: '\E001'; }
 
-.i_icon-calendar:before {
+.i_arrow-right:before {
   content: '\E002'; }
 
-.i_icon-card:before {
+.i_checked:before {
   content: '\E003'; }
 
-.i_icon-doc:before {
+.i_search:before {
   content: '\E004'; }
 
-.i_icon-phone:before {
+.i_warning-ico:before {
   content: '\E005'; }
 
-/* Template styles
-==============================================================================*/
 html, body {
   font: 14px/1.2 Arial, sans-serif;
   height: 100%;
@@ -1143,8 +1040,7 @@ html, body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* Wrapper
------------------------------------------------------------*/
+/* Wrapper----------------------------------------------------------- * / */
 #wrapper {
   min-height: 100%;
   height: auto !important;
@@ -1165,15 +1061,12 @@ html, body {
   -moz-justify-content: flex-start;
   justify-content: flex-start; }
 
-/* Header
------------------------------------------------------------*/
+/* Header----------------------------------------------------------- * / */
 .header-center {
   position: relative;
-  max-width: 1000px;
   margin: 0 auto; }
 
-/* Container
------------------------------------------------------------*/
+/* Container----------------------------------------------------------- * / */
 #content {
   zoom: 1;
   -webkit-box-flex: 1;
@@ -1185,7 +1078,6 @@ html, body {
 
 .columns {
   position: relative;
-  max-width: 1000px;
   margin: 0 auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1194,11 +1086,10 @@ html, body {
   display: flex; }
 
 .center {
-  position: relative;
   max-width: 1000px;
   margin: 0 auto; }
 
-.columns-center {
+.column-center {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -moz-box-flex: 1;
@@ -1211,9 +1102,8 @@ html, body {
   -ms-flex-order: 2;
   order: 2; }
 
-/* Sidebar
------------------------------------------------------------*/
-.columns-left {
+/* Sidebar----------------------------------------------------------- * / */
+.column-left {
   width: 250px;
   background: #808080;
   position: relative;
@@ -1223,7 +1113,7 @@ html, body {
   -ms-flex-order: 1;
   order: 1; }
 
-.columns-right {
+.column-right {
   width: 250px;
   background: #808040;
   position: relative;
@@ -1233,23 +1123,13 @@ html, body {
   -ms-flex-order: 3;
   order: 3; }
 
-/* Footer
------------------------------------------------------------*/
+/* Footer----------------------------------------------------------- * / */
 #footer {
   clear: both;
   background: none repeat scroll 0 0 #eee; }
 
 .footer-center {
   position: relative;
-  max-width: 1000px;
   margin: 0 auto; }
-
-/* Retina
-==============================================================================*/
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Retina-specific stuff here */ }
-
-/* Screens
-==============================================================================*/
 
 /*# sourceMappingURL=../../maps/main.css.map */
