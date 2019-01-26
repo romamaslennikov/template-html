@@ -382,7 +382,7 @@ gulp.task('copy-images', () =>
     '!' + paths.iconsForSprite,
     '!' + paths.svgForFont
   ])
-    .pipe(imagemin({
+    .pipe($.imagemin({
       interlaced: true,
       progressive: true,
       optimizationLevel: 5,
