@@ -57,7 +57,7 @@ let paths = {
   jsDir: src + 'js/',
   iconsForSprite: src + 'img/icons-for-sprite/**/*.png',
   iconsForSpriteDir: src + 'img/icons-for-sprite/',
-  img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico}',
+  img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico,mp4}',
   imgDir: src + 'img/',
   svgForFont: src + 'img/svg-for-font/**/*.svg',
   svgForSprite: src + 'img/svg-for-sprite/**/*.svg',

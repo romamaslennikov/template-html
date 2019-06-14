@@ -37,24 +37,6 @@ html:not(.desktop) a[href^=tel]
     color: inherit
 
 /* Form tags styles----------------------------------------------------------- * /
-
-input[type=text], input[type=search], input[type=tel], input[type=email], input[type=password],
-textarea,
-select
-    position: relative
-    font: $fz-base $family-base, sans-serif
-    outline: none
-    padding: 4px
-    border: 1px solid #ccc
-    color: black
-    vertical-align: middle
-    overflow: hidden
-    background: #fff
-    -ms-box-sizing: border-box
-    -moz-box-sizing: border-box
-    -webkit-box-sizing: border-box
-    box-sizing: border-box
-
 textarea
     overflow: auto
 
@@ -65,12 +47,6 @@ input, textarea
 input:focus, textarea:focus
     @include placeholder
         color: transparent !important
-
-input[type=text]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=email]:focus, input[type=password]:focus,
-textarea:focus,
-select:focus
-    color: black
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2)
 
 button:active,
 input[type="submit"]:active,
