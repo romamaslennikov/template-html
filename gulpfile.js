@@ -51,10 +51,12 @@ let paths = {
   html: [src + '*.html'],
   css: src + 'css/*.css',
   cssDir: src + 'css/',
+  cssDirVendor: src + 'css/vendor/*.css',
   scss: [src + 'scss/**/*.*ss'],
   scssDir: src + 'scss/',
-  js: src + 'js/**/*.js',
+  js: src + 'js/*.js',
   jsDir: src + 'js/',
+  jsDirVendor: src + 'js/vendor/*.js',
   iconsForSprite: src + 'img/icons-for-sprite/**/*.png',
   iconsForSpriteDir: src + 'img/icons-for-sprite/',
   img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico,mp4}',
@@ -65,7 +67,6 @@ let paths = {
   fonts: src + 'fonts/**/*.{eot,svg,ttf,woff,woff2}',
   fontsDir: src + 'fonts/',
   fontsForConvert: src + 'fonts/.tmp/*.{ttf,otf}',
-  fontsDirVendor: 'jspm_packages/**/*.{eot,svg,ttf,woff,woff2}',
   mail: './mail_html/*.html',
   mailCss: './mail_html/*.css',
   mailDir: './mail_html/',
@@ -126,13 +127,7 @@ gulp.task('styles:custom', 'Compile sass files into the main.css', () => {
  * Compile vendor styles into the vendor.css
  */
 gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
-  return gulp.src([
-    ''
-  ])
-    .pipe($.sass({
-      outputStyle: 'compressed',
-      errLogToConsole: true
-    }))
+  return gulp.src(paths.cssDirVendor)
     .on('error', notifyOnError())
     .pipe($.concat('vendor.css'))
     .pipe(gulp.dest(paths.cssDir));
@@ -143,10 +138,11 @@ gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
  */
 gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
   return gulp.src([
-    ''
-  ]).on('error', notifyOnError())
+    paths.jsDir + 'vendor/jquery-3.4.1.min.js',
+    paths.jsDirVendor
+  ])
+    .on('error', notifyOnError())
     .pipe($.concat('vendor.js'))
-    .pipe($.uglify())
     .pipe(gulp.dest(paths.jsDir));
 });
 
@@ -267,7 +263,7 @@ gulp.task('emailBuilder', ['emailPicCopy'], () => {
 /*
  * The 'serve' task serve the dev environment.
  * */
-gulp.task('serve', ['styles:custom'], () => {
+gulp.task('serve', ['styles:custom', 'styles:vendor', 'js:vendor'], () => {
   log(COLORS.blue('********** RUNNING SERVER **********'));
   browserSync({
     port: 8000,
@@ -288,6 +284,8 @@ gulp.task('serve', ['styles:custom'], () => {
   gulp.watch([paths.fonts], browserSync.reload);
 
   gulp.watch([paths.scss], ['styles:custom', browserSync.reload]);
+
+  gulp.watch([paths.cssDirVendor], ['styles:vendor', browserSync.reload]);
 
   gulp.watch([paths.js], browserSync.reload);
 
