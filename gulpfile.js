@@ -11,10 +11,14 @@ let runSequence = require('run-sequence'),
   runTimestamp = Math.round(Date.now() / 1000),
   del = require('del'),
   gulp = require('gulp'),
-  gutil = require('gulp-util'),
-  ftp = require('vinyl-ftp'),
   browserSync = require('browser-sync'),
-  svgSprite = require('gulp-svg-sprites');
+  svgSprite = require('gulp-svg-sprites'),
+  GulpSSH = require('gulp-ssh'),
+  moment = require('moment'),
+  shell = require('gulp-shell'),
+  fs = require('fs');
+
+require('dotenv').config()
 
 /**
  * Load Gulp plugins listed in 'package.json' and attaches them to the `$` variable.
@@ -30,6 +34,22 @@ let log = $.util.log,
   build = './dist/', // build for production
   fontName = 'Icons', // name icons font
   cssClassPrefix = 'i_'; // class for font icons
+
+let config = {
+  host: process.env.VUE_APP_NODE_ENV === 'production' ? process.env.HOST_DEPLOY : process.env.HOST_DEPLOY_DEV,
+  port: 22,
+  username: process.env.VUE_APP_NODE_ENV === 'production' ? process.env.USERNAME : process.env.USERNAME_DEV,
+  privateKey: fs.readFileSync(process.env.SSH_AUTH)
+}
+
+let archiveName = 'deploy.tgz'
+let timestamp = moment().format('YYYYMMDDHHmmssSSS')
+let buildPath = './dist'
+let rootPath = process.env.VUE_APP_NODE_ENV === 'production' ? '' : '/root/smart_login_vue/'
+let releasesPath = rootPath + 'releases/'
+let symlinkPath = rootPath + 'current'
+let releasePath = releasesPath + timestamp
+let gulpSSH
 
 //=============================================
 //               UTILS FUNCTIONS
@@ -422,21 +442,50 @@ gulp.task('build', (callback) => {
 /**
  * Deploy
  */
-gulp.task('deploy', ['build'], () => {
 
-  let conn = ftp.create({
-    host: 'ftp.zzcode.zz.mu',
-    user: 'u111549625',
-    password: '4CqWcwMfPZ', // oops)
-    parallel: 10,
-    log: gutil.log
-  });
+gulp.task('deploy:compress', shell.task('tar -czvf ./' + archiveName + ' --directory=' + buildPath + ' .'))
 
-  let globs = [
-    '**'
-  ];
+gulp.task('deploy:prepare', () => {
+  gulpSSH = new GulpSSH({
+    ignoreErrors: false,
+    sshConfig: config
+  })
 
-  return gulp.src(globs, {base: './dist', cwd: './dist', buffer: false})
-    .pipe(conn.newer('/public_html/test')) // only upload newer files
-    .pipe(conn.dest('/public_html/test'));
-});
+  gulpSSH.exec('cd ' + releasesPath + ' && mkdir ' + timestamp)
+})
+
+gulp.task('deploy:compress', shell.task('tar -czvf ./' + archiveName + ' --directory=' + buildPath + ' .'))
+
+gulp.task('deploy:prepare', () => {
+  gulpSSH = new GulpSSH({
+    ignoreErrors: false,
+    sshConfig: config
+  })
+
+  gulpSSH.exec('cd ' + releasesPath + ' && mkdir ' + timestamp)
+})
+
+gulp.task('deploy:upload', ['deploy:prepare', 'deploy:compress'], function () {
+  return gulp.src(archiveName)
+    .pipe(gulpSSH.sftp('write', releasePath + '/' + archiveName))
+})
+
+gulp.task('deploy:uncompress', ['deploy:upload'], function () {
+  return gulpSSH.exec('cd ' + releasePath + ' && tar -xzvf ' + archiveName)
+})
+
+gulp.task('deploy:symlink', ['deploy:uncompress'], function () {
+  return gulpSSH.exec('rm -r ' + symlinkPath + ' &&' +
+    ' ln -s ' + releasePath + ' ' + symlinkPath)
+})
+
+gulp.task('deploy:clean', ['deploy:symlink'], shell.task('rm ' + archiveName, { ignoreErrors: true }))
+
+gulp.task('deploy', [
+  'deploy:compress',
+  'deploy:prepare',
+  'deploy:upload',
+  'deploy:uncompress',
+  'deploy:symlink',
+  'deploy:clean'
+])

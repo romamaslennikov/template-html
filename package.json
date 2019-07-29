@@ -19,7 +19,8 @@
     "serve:mail": "gulp serve:mail",
     "pug": "gulp pug",
     "install-deps": "npm install",
-    "go": "npm run install-deps && npm run serve"
+    "go": "npm run install-deps && npm run serve",
+    "deploy": "gulp deploy"
   },
   "repository": {
     "type": "git"
@@ -29,6 +30,8 @@
   "homepage": "",
   "devDependencies": {
     "browser-sync": "^2.26.3",
+    "dotenv": "^8.0.0",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-changed": "^3.2.0",
@@ -50,16 +53,18 @@
     "gulp-notify": "^3.2.0",
     "gulp-pug": "^4.0.1",
     "gulp-sass": "^4.0.2",
+    "gulp-shell": "^0.7.1",
     "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "^2.6.4",
+    "gulp-ssh": "^0.7.0",
     "gulp-stream": "0.0.2",
     "gulp-svg-sprites": "^4.1.2",
     "gulp-uglify": "^3.0.1",
-    "gulp-util": "^3.0.7",
+    "gulp-util": "^3.0.8",
     "gulp-watch": "^5.0.1",
     "gulp.spritesmith": "^6.9.0",
+    "moment": "^2.24.0",
     "run-sequence": "^2.2.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-ftp": "^0.6.1"
+    "vinyl-buffer": "^1.0.1"
   }
 }
