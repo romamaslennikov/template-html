@@ -190,7 +190,7 @@ gulp.task('sprite', () => {
       imgName: '../img/sprite.png',
       //retinaImgName: '../img/sprite@2x.png',
       cssName: '_sprite.sass',
-      cssTemplate: src + 'icons_build/_sprite_template.css.tmpl',
+      cssTemplate: src + 'icons_template/_sprite_template.css.tmpl',
       padding: 2,
       algorithm: 'top-down',
       algorithmOpts: {sort: false}
@@ -222,7 +222,7 @@ gulp.task('iconfont', () => {
     .pipe($.iconfontCss({
       fontName: fontName,
       cssClass: cssClassPrefix,
-      path: src + 'icons_build/_icons_template.css.tmpl',
+      path: src + 'icons_template/_icons_template.css.tmpl',
       targetPath: '../scss/_icons.scss',
       fontPath: '../fonts/'
     }))

@@ -20,15 +20,17 @@ Before running any Gulp tasks:
     |     |src
     |     |     index.html
     |     |     main.html
-    |     |     |icons_build
+    |     |     |icons_template
     |     |     |     _icons_template.css.tmpl
     |     |     |     _sprite_template.css.tmpl
     |     |     |js
+    |     |     |     |vendor
     |     |     |     vendor.js
     |     |     |     jquery.main.js
     |     |     |pug
     |     |     |     main.pug
     |     |     |css
+    |     |     |     |vendor
     |     |     |     main.css
     |     |     |     vendor.css
     |     |     |scss
@@ -46,7 +48,7 @@ Before running any Gulp tasks:
 
 ## Version
 
-1.1.6
+1.1.7
 
 ## License
 
