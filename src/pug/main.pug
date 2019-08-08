@@ -3,24 +3,13 @@ extends layouts/_default
 block data
   -
     vars = {
-      header_class: 'header-bg-home',
-      title: 'Site name | home'
+    header_class: '',
+    title: 'Site name | home'
     }
 
 block header
   include includes/_header
 
 block content
-  .columns.center
-    main.column-center
-      | columns-content
-
-    aside.column-left
-      = '\n'
-      | columns-left
-
-    aside.column-right
-      = '\n'
-      | columns-right
-  section.center
-   | center
+  section.container
+    | center

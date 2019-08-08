@@ -3,78 +3,54 @@
 @import "../variables"
 
 html, body
-    font: $fz-base/$line-height-base $family-base
-    height: 100%
-    width: 100%
-    color: $color-base
-    background: $bg-color-base
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
+  font: $fz-base/$line-height-base $family-base
+  height: 100%
+  width: 100%
+  color: $color-base
+  background: $bg-color-base
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
 
 *, *:before, *:after
-    -moz-box-sizing: border-box
-    -webkit-box-sizing: border-box
-    box-sizing: border-box
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
 
-/* Wrapper----------------------------------------------------------- * /
-
-#wrapper
-    min-height: 100%
-    height: auto !important
-    height: 100%
-    margin: 0 auto
-    @include flexbox
-    @include flex-flow(column nowrap)
-    @include justify-content(flex-start)
+body
+  min-height: 100%
+  height: auto !important
+  @include flexbox
+  @include flex-flow(column nowrap)
+  @include justify-content(flex-start)
 
 /* Header----------------------------------------------------------- * /
 
 #header
+  background: none repeat scroll 0 0 #eee
 
 .header-center
-    position: relative
-    margin: 0 auto
+  position: relative
+  margin: 0 auto
 
 /* Container----------------------------------------------------------- * /
 
 #content
-    zoom: 1
-    @include flex(1)
+  zoom: 1
+  @include flex(1)
 
-.columns
-    position: relative
-    margin: 0 auto
-    @include flexbox
-
-.center
-    max-width: 1000px
-    margin: 0 auto
-
-.column-center
-    @include flex(1)
-    @include order(2)
-
-/* Sidebar----------------------------------------------------------- * /
-
-.column-left
-    width: 250px
-    background: #808080
-    position: relative
-    @include order(1)
-
-.column-right
-    width: 250px
-    background: #808040
-    position: relative
-    @include order(3)
+.container
+  max-width: 1000px
+  margin: 0 auto
+  padding-left: 20px
+  padding-right: 20px
 
 /* Footer----------------------------------------------------------- * /
 
 #footer
-    clear: both
-    background: none repeat scroll 0 0 #eee
+  clear: both
+  background: none repeat scroll 0 0 #eee
 
 .footer-center
-    position: relative
-    margin: 0 auto
+  position: relative
+  margin: 0 auto
 

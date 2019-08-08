@@ -1,131 +1,131 @@
 /* H Group----------------------------------------------------------- * /
 
 h1, .h1
-    font-weight: bold
-    font-size: 1.8em
+  font-weight: bold
+  font-size: 1.8em
 
 h2, .h2
-    font-weight: bold
-    font-size: 1.5em
+  font-weight: bold
+  font-size: 1.5em
 
 h3, .h3
-    font-weight: bold
-    font-size: 1.5em
+  font-weight: bold
+  font-size: 1.5em
 
 h4, h5, h6, .h4, .h5, .h6
-    font-weight: bold
-    font-size: 1.2em
+  font-weight: bold
+  font-size: 1.2em
 
 /* Links----------------------------------------------------------- * /
 
 a
-    color: $linkColor
-    text-decoration: none
+  color: $linkColor
+  text-decoration: none
 
 a:visited
 
 a:hover
-    text-decoration: underline
+  text-decoration: underline
 
 a:active
 
 a:focus
-    outline: none
+  outline: none
 
 html:not(.desktop) a[href^=tel]
-    text-decoration: underline
-    color: inherit
+  text-decoration: underline
+  color: inherit
 
 /* Form tags styles----------------------------------------------------------- * /
 textarea
-    overflow: auto
+  overflow: auto
 
 input, textarea
-    @include placeholder
-        color: $placeholder
+  @include placeholder
+    color: $placeholder
 
 input:focus, textarea:focus
-    @include placeholder
-        color: transparent !important
+  @include placeholder
+    color: transparent !important
 
 button:active,
 input[type="submit"]:active,
 input[type="reset"]:active,
 input[type="button"]:active
-    outline: none
+  outline: none
 
 /*stylized-switch*/
 .switch
-    position: relative
-    display: inline-block
-    height: $switchH
-    width: $switchW
-    vertical-align: middle
-    cursor: pointer
-    top: -1px
-    margin-right: 3px
+  position: relative
+  display: inline-block
+  height: $switchH
+  width: $switchW
+  vertical-align: middle
+  cursor: pointer
+  top: -1px
+  margin-right: 3px
 
 .switch input
-    vertical-align: middle
-    margin: 0
-    position: absolute
-    top: 0
-    left: 0
-    height: $switchH
-    width: $switchW
+  vertical-align: middle
+  margin: 0
+  position: absolute
+  top: 0
+  left: 0
+  height: $switchH
+  width: $switchW
 
 .switch input:not(:checked), .switch input:checked
-    opacity: 0
-    filter: alpha(opacity=0)
-    z-index: 1
-    cursor: pointer
+  opacity: 0
+  filter: alpha(opacity=0)
+  z-index: 1
+  cursor: pointer
 
 /*not checked radio*/
 .switch input[type=radio]:not(:checked) + i, .switch input[type=radio]:checked + i
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    background: $switchNotCheckedBg
-    border: $switchNotCheckedBorder
-    border-radius: 30px 30px 30px 30px
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: $switchNotCheckedBg
+  border: $switchNotCheckedBorder
+  border-radius: 30px 30px 30px 30px
 
 /*not checked checkbox*/
 .switch input[type=checkbox]:not(:checked) + i, .switch input[type=checkbox]:checked + i
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    background: $switchNotCheckedBg
-    border-radius: 3px 3px 3px 3px
-    border: $switchNotCheckedBorder
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: $switchNotCheckedBg
+  border-radius: 3px 3px 3px 3px
+  border: $switchNotCheckedBorder
 
 /*checked radio*/
 .switch input[type=radio]:checked + i
-    background: $switchCheckedBg
-    box-shadow: $switchCheckedShadow
-    border: $switchCheckedBorder
+  background: $switchCheckedBg
+  box-shadow: $switchCheckedShadow
+  border: $switchCheckedBorder
 
 /*checked checkbox*/
 .switch input[type=checkbox]:checked + i
-    background: $switchCheckedBg
-    box-shadow: $switchCheckedShadow
-    border: $switchCheckedBorder
+  background: $switchCheckedBg
+  box-shadow: $switchCheckedShadow
+  border: $switchCheckedBorder
 
 /*hover radio*/
 .switch input[type=radio]:checked + i:hover, label:hover .switch input[type=radio]:checked + i
-    opacity: 0.85
+  opacity: 0.85
 
 .switch input[type=radio] + i:hover, label:hover .switch input[type=radio] + i
-    opacity: 0.85
+  opacity: 0.85
 
 /*hover checkbox*/
 .switch input[type=checkbox]:checked + i:hover, label:hover .switch input[type=checkbox]:checked + i
-    opacity: 0.85
+  opacity: 0.85
 
 .switch input[type=checkbox] + i:hover, label:hover .switch input[type=checkbox] + i
-    opacity: 0.85
+  opacity: 0.85
 
 /*end stylized-switch*/
