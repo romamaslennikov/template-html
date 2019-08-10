@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Верстка</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <style type="text/css" rel="stylesheet">
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+    title Верстка
+    link(rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css')
+    meta(content='width=device-width, initial-scale=1.0' name='viewport')
+    style(type='text/css' rel='stylesheet').
       .classname {
         -webkit-animation: cssAnimation 8s linear infinite;
         -moz-animation: cssAnimation 8s linear infinite;
@@ -17,7 +17,7 @@
         line-height: 20px;
         margin: 0 !important;
       }
-      
+
       .classname--mod {
         -webkit-animation: cssAnimation1 6s linear infinite;
         -moz-animation: cssAnimation1 6s linear infinite;
@@ -27,7 +27,7 @@
         left: -13px;
         top: 5px;
       }
-      
+
       .classname--mod1 {
         -webkit-animation: cssAnimation1 6s linear infinite;
         -moz-animation: cssAnimation1 6s linear infinite;
@@ -37,7 +37,7 @@
         left: -30px;
         top: -7px;
       }
-      
+
       @-webkit-keyframes cssAnimation {
         from {
           -webkit-transform: rotate(0deg);
@@ -46,7 +46,7 @@
           -webkit-transform: rotate(360deg);
         }
       }
-      
+
       @-moz-keyframes cssAnimation {
         from {
           -moz-transform: rotate(0deg);
@@ -55,7 +55,7 @@
           -moz-transform: rotate(360deg);
         }
       }
-      
+
       @-o-keyframes cssAnimation {
         from {
           -o-transform: rotate(0deg);
@@ -64,7 +64,7 @@
           -o-transform: rotate(360deg);
         }
       }
-      
+
       @-webkit-keyframes cssAnimation1 {
         from {
           -webkit-transform: rotate(360deg);
@@ -73,7 +73,7 @@
           -webkit-transform: rotate(0deg);
         }
       }
-      
+
       @-moz-keyframes cssAnimation1 {
         from {
           -moz-transform: rotate(360deg);
@@ -82,7 +82,7 @@
           -moz-transform: rotate(0deg);
         }
       }
-      
+
       @-o-keyframes cssAnimation1 {
         from {
           -o-transform: rotate(360deg);
@@ -91,7 +91,7 @@
           -o-transform: rotate(0deg);
         }
       }
-      
+
       html, body {
         font-family: 'Verdana', Arial;
         width: 100%;
@@ -107,7 +107,7 @@
         background: -ms-radial-gradient(center, ellipse cover, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
         background: radial-gradient(ellipse at center, rgba(212, 228, 239, 1) 0%, rgba(212, 228, 239, 1) 22%, rgba(134, 174, 204, 1) 100%);
       }
-      
+
       body {
         margin: 0;
         padding: 0;
@@ -116,7 +116,7 @@
         height: 100%;
         text-align: center;
       }
-      
+
       a {
         text-decoration: underline;
         color: #000;
@@ -131,13 +131,13 @@
         display: inline-block;
         line-height: 22px
       }
-      
+
       a:visited {
         color: #999;
         outline: none;
         border: 0
       }
-      
+
       a:hover {
         color: red;
         text-decoration: none;
@@ -148,47 +148,48 @@
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
         font-size: 22px
       }
-      
+
       a:first-letter {
         color: #000
       }
-      
+
       h1 {
         font-size: 20px
       }
-      
+
       #id {
         opacity: 0;
         transition: all 0.6s ease-out;
         transform: translate3d(0, 20px, 0);
       }
-      
+
       #id.-active {
         opacity: 1;
         transition: all 0.6s ease-out;
         transform: translate3d(0, 0, 0);
       }
-      
-    </style>
-  </head>
-  <body>
-    <div style="display: table-cell; vertical-align: middle;">
-      <div id="id">
-        <noindex>
-          <h1 class="ui header">Верстка "Site name" 00.00.0000</h1>
-          <p><i class="checkmark icon"></i><a href="main.html" target="_blank">Главная</a></p>
-          <p style="padding-left: 30px;"><i class="classname icon setting"></i><i class="classname classname--mod icon setting"></i><i class="classname classname--mod1 icon setting"></i></p>
-        </noindex>
-        <mark style="background:none;font-weight: normal; font-size: 12px; color:#000; font-family: Verdana;">
-          Верстаю сайты:
-          maslennikov.rv@gmail.com
-        </mark>
-      </div>
-    </div>
-    <script>
+
+  body
+    div(style='display: table-cell; vertical-align: middle;')
+      div#id
+        noindex
+          h1.ui.header Верстка "Site name" 00.00.0000
+
+          p
+            i.checkmark.icon
+            a(href='main.html' target='_blank') Главная
+
+          p(style='padding-left: 30px;')
+            i.classname.icon.setting
+            i.classname.classname--mod.icon.setting
+            i.classname.classname--mod1.icon.setting
+
+        mark(style='background:none;font-weight: normal; font-size: 12px; color:#000; font-family: Verdana;')
+          | Верстаю сайты:
+          | maslennikov.rv@gmail.com
+
+    script.
       window.addEventListener('load', function () {
         document.querySelector('#id').classList.add('-active')
       }); 
-    </script>
-  </body>
-</html>
+
