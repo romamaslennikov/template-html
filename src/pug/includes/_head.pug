@@ -1,4 +1,4 @@
-- var versoin = Math.floor(Math.random() * 1000000000) + 1;
+- var version = Math.random().toString(36).substring(2);
 
 head
   meta(charset='utf-8')
@@ -7,5 +7,5 @@ head
   title=vars.title
   link(rel='shortcut icon', href='/favicon.ico', type='image/x-icon')
   link(rel='icon', href='/favicon.ico', type='image/x-icon')
-  link(href='css/main.css?v' + versoin, rel='stylesheet')
-  link(href='css/vendor.css?v' + versoin, rel='stylesheet')
+  link(href='css/main.css?v' + version, rel='stylesheet')
+  link(href='css/vendor.css?v' + version, rel='stylesheet')
