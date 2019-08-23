@@ -42,6 +42,7 @@
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-fontgen": "^0.2.5",
+    "gulp-htmlmin": "^5.0.1",
     "gulp-iconfont": "^10.0.3",
     "gulp-iconfont-css": "^3.0.0",
     "gulp-imagemin": "^6.1.0",
@@ -57,9 +58,6 @@
     "gulp-uglify": "^3.0.2",
     "gulp.spritesmith": "^6.10.1",
     "moment": "^2.24.0"
-  },
-  "dependencies": {
-    "gulp-htmlmin": "^5.0.1"
   },
   "browserslist": [
     "last 1 version",
