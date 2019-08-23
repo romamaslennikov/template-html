@@ -6,7 +6,6 @@
  * Load required dependencies.
  */
 
-const runSequence = require('run-sequence')
 const runTimestamp = Math.round(Date.now() / 1000)
 const gulp = require('gulp')
 const plugins = require('gulp-load-plugins')()
@@ -59,6 +58,7 @@ let paths = {
   scssDir: src + 'scss/',
   js: src + 'js/*.js',
   jsDir: src + 'js/',
+  jsES6: src + 'js/es6/*.js',
   jsDirVendor: src + 'js/vendor/*.js',
   iconsForSprite: src + 'img/icons-for-sprite/**/*.png',
   iconsForSpriteDir: src + 'img/icons-for-sprite/',
@@ -143,7 +143,7 @@ function cssVendor() {
 exports.cssVendor = cssVendor
 
 /**
- * Compile vendor js into the vendor.js
+ * Compile vendor js into the vendor.js, babel es6 to es5
  */
 
 function jsVendor() {
@@ -159,6 +159,16 @@ function jsVendor() {
 }
 
 exports.jsVendor = jsVendor
+
+function babel() {
+  return gulp.src(paths.jsES6)
+    .pipe(plugins.babel({
+      presets: ['@babel/env']
+    }))
+    .pipe(gulp.dest(paths.jsDir))
+}
+
+exports.babel = babel
 
 /*
  * Create sprite
@@ -291,6 +301,8 @@ function serveInit() {
 
   gulp.watch(paths.jsDirVendor, gulp.series(jsVendor))
 
+  gulp.watch(paths.jsES6, gulp.series(babel))
+
   gulp.watch(paths.pug, gulp.series('html'))
 
   gulp.watch(paths.scss).on('change', browserSync.reload)
@@ -304,12 +316,123 @@ function serveInit() {
   gulp.watch(paths.cssDirVendor).on('change', browserSync.reload)
 
   gulp.watch(paths.jsDirVendor).on('change', browserSync.reload)
+
+  gulp.watch(paths.jsES6).on('change', browserSync.reload)
 }
 
-exports.serve = gulp.series(css, html, cssVendor, jsVendor, serveInit)
+exports.serve = gulp.series(css, html, cssVendor, jsVendor, babel, serveInit)
 
 //=============================================
 //              PRODUCTION TASKS
 //=============================================
 
+/**
+ * The 'clean' task delete 'build' directories.
+ */
 
+function clean() {
+  return del([].concat(paths.build.basePath))
+}
+
+function copyHtml() {
+  return gulp.src(paths.html)
+  //.pipe($.htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest(paths.build.basePath))
+    .pipe(plugins.size({
+      title: 'html'
+    }))
+}
+
+function copyJs() {
+  return gulp.src(paths.js)
+  //.pipe(plugins.uglify())
+    .pipe(gulp.dest(paths.build.scripts))
+    .pipe(plugins.size({
+      title: 'js'
+    }))
+}
+
+function copyCss() {
+  return gulp.src(paths.css)
+    .pipe(plugins.autoprefixer())
+    .pipe(plugins.cleanCss({compatibility: 'ie8'}))
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.build.styles))
+    .pipe(plugins.size({
+      title: 'css'
+    }))
+}
+
+function copyImages() {
+  return gulp.src([
+    paths.img,
+    '!' + paths.iconsForSprite,
+    '!' + paths.svgForFont
+  ])
+    .pipe(plugins.imagemin({
+      interlaced: true,
+      progressive: true,
+      optimizationLevel: 5,
+      svgoPlugins: [
+        {removeViewBox: true},
+        {cleanupIDs: false}
+      ]
+    }))
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.build.images))
+    .pipe(plugins.size({
+      title: 'images'
+    }))
+}
+
+function copyFonts() {
+  return gulp.src([
+    paths.fonts,
+    '!' + paths.fontsForConvert
+  ])
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.build.fonts))
+    .pipe(plugins.size({
+      title: 'fonts'
+    }))
+}
+
+exports.build = gulp.series(clean, gulp.parallel(copyHtml, copyJs, copyCss, copyImages, copyFonts))
+
+/**
+ * Deploy
+ */
+
+function deployCompress() {
+  return (async () => (shell.task('tar -czvf ./' + archiveName + ' --directory=' + buildPath + ' .'))())()
+}
+
+function deployPrepare() {
+  return (async () => {
+    gulpSSH = new GulpSSH({
+      ignoreErrors: false,
+      sshConfig: config
+    })
+
+    gulpSSH.exec('cd ' + releasesPath + ' && mkdir ' + timestamp)
+  })()
+}
+
+function deployUpload() {
+  return gulp.src(archiveName)
+    .pipe(gulpSSH.sftp('write', releasePath + '/' + archiveName))
+}
+
+function deployUncompress() {
+  return (async () => gulpSSH.exec('cd ' + releasePath + ' && tar -xzvf ' + archiveName))()
+}
+
+function deploySymlink() {
+  return (async () => gulpSSH.exec('rm -r ' + symlinkPath + ' &&' + ' ln -s ' + releasePath + ' ' + symlinkPath))()
+}
+
+function deployClean() {
+  return (async () => (shell.task('rm ' + archiveName, {ignoreErrors: true}))())()
+}
+
+exports.deploy = gulp.series(deployCompress, deployPrepare, deployUpload, deployUncompress, deploySymlink, deployClean)

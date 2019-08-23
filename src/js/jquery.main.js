@@ -1,11 +1,12 @@
-window.appName = 'APP';
+"use strict";
 
+window.appName = 'APP';
 window[window.appName] = {};
 
 (function (APP) {
   APP.init = function () {
     window.addEventListener('load', function () {
-      console.log('ready');
+      console.log("ready");
     });
   };
 })(APP);

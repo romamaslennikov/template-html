@@ -28,27 +28,43 @@
   },
   "homepage": "https://github.com/romamaslennikov/template-html#readme",
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "browser-sync": "^2.26.7",
     "del": "^5.0.0",
     "dotenv": "^8.1.0",
     "fs": "0.0.1-security",
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-changed": "^4.0.1",
     "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-fontgen": "^0.2.5",
     "gulp-iconfont": "^10.0.3",
     "gulp-iconfont-css": "^3.0.0",
+    "gulp-imagemin": "^6.1.0",
     "gulp-load-plugins": "^2.0.1",
     "gulp-notify": "^3.2.0",
     "gulp-pug": "^4.0.1",
     "gulp-sass": "^4.0.2",
     "gulp-shell": "^0.7.1",
+    "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-ssh": "^0.7.0",
     "gulp-svg-sprites": "^4.1.2",
+    "gulp-uglify": "^3.0.2",
     "gulp.spritesmith": "^6.10.1",
-    "moment": "^2.24.0",
-    "run-sequence": "^2.2.1"
-  }
+    "moment": "^2.24.0"
+  },
+  "dependencies": {
+    "gulp-htmlmin": "^5.0.1"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> .01%",
+    "maintained node versions",
+    "not dead"
+  ]
 }
