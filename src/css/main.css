@@ -810,7 +810,7 @@ template {
   background: #b3b3b3;
   border-radius: 3px; }
 
-/* Font face==============================================================================*/
+/* Font face==========================================================================*/
 /* H Group----------------------------------------------------------- * / */
 h1, .h1 {
   font-weight: bold;
@@ -1000,14 +1000,11 @@ input[type="button"]:active {
 .i_arrow-right:before {
   content: '\E002'; }
 
-.i_checked:before {
+.i_search:before {
   content: '\E003'; }
 
-.i_search:before {
-  content: '\E004'; }
-
 .i_warning-ico:before {
-  content: '\E005'; }
+  content: '\E004'; }
 
 html, body {
   font: 14px/1.2 Arial, sans-serif;

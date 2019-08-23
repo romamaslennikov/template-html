@@ -1,5 +1,3 @@
-'use strict';
-
 //=============================================
 //               DEPENDENCIES
 //=============================================
@@ -7,38 +5,32 @@
 /**
  * Load required dependencies.
  */
-let runSequence = require('run-sequence'),
-  runTimestamp = Math.round(Date.now() / 1000),
-  del = require('del'),
-  gulp = require('gulp'),
-  browserSync = require('browser-sync'),
-  svgSprite = require('gulp-svg-sprites'),
-  GulpSSH = require('gulp-ssh'),
-  moment = require('moment'),
-  shell = require('gulp-shell'),
-  fs = require('fs');
 
-require('dotenv').config()
-
-/**
- * Load Gulp plugins listed in 'package.json' and attaches them to the `$` variable.
- */
-let $ = (require('gulp-load-plugins'))();
+const runSequence = require('run-sequence')
+const runTimestamp = Math.round(Date.now() / 1000)
+const gulp = require('gulp')
+const plugins = require('gulp-load-plugins')()
+const browserSync = require('browser-sync').create()
+const del = require('del')
+const env = require('dotenv').config()
+const moment = require('moment')
+const GulpSSH = require('gulp-ssh')
+const shell = require('gulp-shell')
+const fs = require('fs')
 
 /**
  * Declare variables that are use in gulpfile.js
  */
-let log = $.util.log,
-  COLORS = $.util.colors,
-  src = './src/', // development
+
+let src = './src/', // development
   build = './dist/', // build for production
   fontName = 'Icons', // name icons font
-  cssClassPrefix = 'i_'; // class for font icons
+  cssClassPrefix = 'i_' // class for font icons
 
 let config = {
-  host: process.env.VUE_APP_NODE_ENV === 'production' ? process.env.HOST_DEPLOY : process.env.HOST_DEPLOY_DEV,
+  host: process.env.APP_NODE_ENV === 'production' ? process.env.HOST_DEPLOY : process.env.HOST_DEPLOY_DEV,
   port: 22,
-  username: process.env.VUE_APP_NODE_ENV === 'production' ? process.env.USERNAME : process.env.USERNAME_DEV,
+  username: process.env.APP_NODE_ENV === 'production' ? process.env.USERNAME : process.env.USERNAME_DEV,
   privateKey: fs.readFileSync(process.env.SSH_AUTH)
 }
 
@@ -52,18 +44,9 @@ let releasePath = releasesPath + timestamp
 let gulpSSH
 
 //=============================================
-//               UTILS FUNCTIONS
-//=============================================
-let notifyOnError = () => {
-  return $.notify.onError({
-    message: 'Error: <%= error.message %>',
-    sound: true
-  });
-};
-
-//=============================================
 //               DECLARE PATHS
 //=============================================
+
 let paths = {
   app: src,
   pug: [src + 'pug/**/*.pug'],
@@ -98,94 +81,92 @@ let paths = {
     styles: build + 'css/',
     scripts: build + 'js/'
   }
-};
+}
 
 //=============================================
-//               HELPER
+//               UTILS FUNCTIONS
 //=============================================
 
-/**
- * Add the ability to provide help text to custom gulp tasks. Usage: `gulp help`
- */
-$.help(gulp);
+let notifyOnError = () => {
+  return plugins.notify.onError({
+    message: 'Error: <%= error.message %>',
+    sound: true
+  })
+}
 
 //=============================================
-//               SUB TASKS
+//                  TASKS
 //=============================================
 
 /**
  * Compile pug files into the html.
  */
-gulp.task('pug', 'Compile pug files into the html', () => {
+
+function html() {
   return gulp.src(paths.pugIgnorePartials)
-    .pipe($.pug({
-      pretty: true
-    }))
-    .pipe(gulp.dest(paths.app));
-});
+    .pipe(plugins.pug({pretty: true}))
+    .pipe(gulp.dest(paths.app))
+}
+
+exports.html = html
 
 /**
  * Compile SASS files into the main.css.
  */
-gulp.task('styles:custom', 'Compile sass files into the main.css', () => {
+
+function css() {
   return gulp.src(paths.scss)
-    .pipe($.changed(paths.cssDir, {
+    .pipe(plugins.changed(paths.cssDir, {
       extension: '.*ss'
     }))
-    .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      /*outputStyle: 'compressed',*/
+    .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.sass({
       errLogToConsole: true
     }))
     .on('error', notifyOnError())
-    .pipe($.concat('main.css'))
-    .pipe($.sourcemaps.write('../../maps'))
-    .pipe(gulp.dest(paths.cssDir));
-});
+    .pipe(plugins.concat('main.css'))
+    .pipe(plugins.sourcemaps.write('../../maps'))
+    .pipe(gulp.dest(paths.cssDir))
+}
 
-/**
- * Compile vendor styles into the vendor.css
- */
-gulp.task('styles:vendor', 'Compile vendor styles into the vendor.css', () => {
+exports.css = css
+
+function cssVendor() {
+  del(paths.cssDir + 'vendor.css')
+
   return gulp.src(paths.cssDirVendor)
     .on('error', notifyOnError())
-    .pipe($.concat('vendor.css'))
-    .pipe(gulp.dest(paths.cssDir));
-});
+    .pipe(plugins.concat('vendor.css'))
+    .pipe(gulp.dest(paths.cssDir))
+}
+
+exports.cssVendor = cssVendor
 
 /**
  * Compile vendor js into the vendor.js
  */
-gulp.task('js:vendor', 'Compile vendor js into the vendor.js', () => {
+
+function jsVendor() {
+  del(paths.jsDir + 'vendor.js')
+
   return gulp.src([
     paths.jsDir + 'vendor/jquery-3.4.1.min.js',
     paths.jsDirVendor
   ])
     .on('error', notifyOnError())
-    .pipe($.concat('vendor.js'))
-    .pipe(gulp.dest(paths.jsDir));
-});
+    .pipe(plugins.concat('vendor.js'))
+    .pipe(gulp.dest(paths.jsDir))
+}
 
-/**
- * The 'fonts' task copies fonts to `build / dist` directory.
- */
-gulp.task('fonts:vendor', 'Copy fonts vendor to `fonts` directory', () => {
-  return gulp.src(paths.fontsDirVendor)
-    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
-    .pipe($.flatten())
-    .on('error', notifyOnError())
-    .pipe(gulp.dest(paths.fontsDir))
-    .pipe($.size({
-      title: 'fonts'
-    }));
-});
+exports.jsVendor = jsVendor
 
 /*
  * Create sprite
  * */
-gulp.task('sprite', () => {
+
+function sprite() {
   let spriteData = gulp.src(paths.iconsForSprite)
-    .pipe($.spritesmith({
+    .pipe(plugins.spritesmith({
       //retinaSrcFilter: paths.iconsForSpriteDir+'*@2x.png',
       imgName: '../img/sprite.png',
       //retinaImgName: '../img/sprite@2x.png',
@@ -195,31 +176,47 @@ gulp.task('sprite', () => {
       algorithm: 'top-down',
       algorithmOpts: {sort: false}
     }))
-    .on('error', notifyOnError());
+    .on('error', notifyOnError())
+
   spriteData.img
-    .pipe(gulp.dest(paths.imgDir));
+    .pipe(gulp.dest(paths.imgDir))
+
   spriteData.css
-    .pipe(gulp.dest(paths.scssDir));
-});
+    .pipe(gulp.dest(paths.scssDir))
+
+  return spriteData
+}
+
+exports.sprite = sprite
 
 /*
  * Create svg sprite
  * */
 
-gulp.task('spriteSvg', () => {
+function spriteSvg() {
   return gulp.src(paths.svgForSprite)
-    .pipe(svgSprite({
-      padding: 20
+    .pipe(plugins.svgSprites({
+      padding: 20,
+      cssFile: 'sprite-svg.css',
+      svg: {
+        sprite: 'sprite.svg'
+      },
+      preview: {
+        sprite: 'sprite-svg.html'
+      }
     }))
-    .pipe(gulp.dest(paths.imgDir));
-})
+    .pipe(gulp.dest(paths.imgDir))
+}
+
+exports.spriteSvg = spriteSvg
 
 /*
  * Create icons font
  * */
-gulp.task('iconfont', () => {
+
+function iconfont() {
   return gulp.src(paths.svgForFont)
-    .pipe($.iconfontCss({
+    .pipe(plugins.iconfontCss({
       fontName: fontName,
       cssClass: cssClassPrefix,
       path: src + 'icons_template/_icons_template.css.tmpl',
@@ -227,54 +224,43 @@ gulp.task('iconfont', () => {
       fontPath: '../fonts/'
     }))
     .on('error', notifyOnError())
-    .pipe($.iconfont({
+    .pipe(plugins.iconfont({
       fontName: fontName,
       prependUnicode: true, // recommended option
       formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
       timestamp: runTimestamp // recommended to get consistent builds when watching files
     }))
     .on('error', notifyOnError())
-    .pipe(gulp.dest(paths.fontsDir));
-});
+    .pipe(gulp.dest(paths.fontsDir))
+}
+
+exports.iconfont = iconfont
 
 /*
  * Create web fonts
  * */
-// 1) Create web fonts
-gulp.task('fontgen', () => {
+
+function fontgen() {
   return gulp.src(paths.fontsForConvert)
-    .pipe($.fontgen({
+    .pipe(plugins.fontgen({
       dest: paths.fontsDir,
       css_fontpath: "../fonts"
     }))
-    .on('error', notifyOnError());
-});
-// 2) Concat font css files
-gulp.task('fontgen-concat-css', ['fontgen'], () => {
-  return gulp.src(paths.fontsDir + '*.css')
-    .pipe($.concat('font-face.css'))
-    .pipe(gulp.dest(paths.fontsForConvert));
-});
-// 3) Remove original font css files
-gulp.task('fontgen-remove-font-css', ['fontgen-concat-css'], () => {
-  return gulp.src(paths.fontsDir + '*.css')
-    .pipe($.clean());
-});
-// 4) Main task
-gulp.task('build-web-fonts', ['fontgen-remove-font-css']);
+    .on('error', notifyOnError())
+}
 
-/*
- * Uses Email Builder to inline css into HTML tags, send tests to Litmus, and send test emails to yourself.
- * */
-gulp.task('emailPicCopy', () => {
-  return gulp.src(paths.mailDir + 'img/**/*.{png,jpg,jpeg}')
-    .pipe(gulp.dest(paths.mailDirDist + 'img'));
-});
-gulp.task('emailBuilder', ['emailPicCopy'], () => {
-  return gulp.src(paths.mail)
-    .pipe($.emailBuilder().build())
-    .pipe(gulp.dest(paths.mailDirDist));
-});
+function fontgenConcatCss() {
+  return gulp.src(paths.fontsDir + '*.css')
+    .pipe(plugins.concat('font-face.css'))
+    .pipe(gulp.dest(paths.fontsForConvert))
+}
+
+function fontgenRemove() {
+  return gulp.src(paths.fontsDir + '*.css')
+    .pipe(plugins.clean())
+}
+
+exports.fonts = gulp.series(fontgen, fontgenConcatCss, fontgenRemove)
 
 //=============================================
 //                DEVELOPMENT TASKS
@@ -283,9 +269,9 @@ gulp.task('emailBuilder', ['emailPicCopy'], () => {
 /*
  * The 'serve' task serve the dev environment.
  * */
-gulp.task('serve', ['styles:custom', 'styles:vendor', 'js:vendor'], () => {
-  log(COLORS.blue('********** RUNNING SERVER **********'));
-  browserSync({
+
+function serveInit() {
+  browserSync.init({
     port: 8000,
     server: {
       baseDir: paths.app
@@ -293,199 +279,37 @@ gulp.task('serve', ['styles:custom', 'styles:vendor', 'js:vendor'], () => {
     notify: false,
     open: false,
     files: [paths.html, paths.scss, paths.js]
-  });
+  })
 
-  //gulp.watch([paths.html], browserSync.reload);
+  gulp.watch(paths.iconsForSprite, gulp.series(sprite))
 
-  gulp.watch([paths.iconsForSprite], ['sprite', browserSync.reload]);
+  gulp.watch(paths.svgForFont, gulp.series(iconfont))
 
-  gulp.watch([paths.svgForFont], ['iconfont', browserSync.reload]);
+  gulp.watch(paths.scss, gulp.series(css))
 
-  gulp.watch([paths.fonts], browserSync.reload);
+  gulp.watch(paths.cssDirVendor, gulp.series(cssVendor))
 
-  gulp.watch([paths.scss], ['styles:custom', browserSync.reload]);
+  gulp.watch(paths.jsDirVendor, gulp.series(jsVendor))
 
-  gulp.watch([paths.cssDirVendor], ['styles:vendor', browserSync.reload]);
+  gulp.watch(paths.pug, gulp.series('html'))
 
-  gulp.watch([paths.js], browserSync.reload);
+  gulp.watch(paths.scss).on('change', browserSync.reload)
 
-  gulp.watch([paths.img], browserSync.reload);
+  gulp.watch(paths.pug).on('change', browserSync.reload)
 
-  gulp.watch([paths.pug], ['pug', browserSync.reload]);
-});
+  gulp.watch(paths.js).on('change', browserSync.reload)
 
-gulp.task('serve:prod', ['build'], () => {
-  log(COLORS.blue('********** RUNNING SERVER:PROD **********'));
-  browserSync({
-    port: 8000,
-    server: {
-      baseDir: paths.build.basePath
-    },
-    notify: false,
-    open: true
-  });
-});
+  gulp.watch(paths.img).on('change', browserSync.reload)
 
-gulp.task('serve:mail', () => {
-  log(COLORS.blue('********** RUNNING SERVER:MAIL **********'));
-  browserSync({
-    port: 8000,
-    server: {
-      baseDir: paths.mailDir
-    },
-    notify: false,
-    open: false,
-    files: [src + "css/*.css", src + "*.html", src + "js/**/*.js"]
-  });
+  gulp.watch(paths.cssDirVendor).on('change', browserSync.reload)
 
-  gulp.watch([paths.mail], browserSync.reload);
+  gulp.watch(paths.jsDirVendor).on('change', browserSync.reload)
+}
 
-  gulp.watch([paths.mailCss], browserSync.reload);
-});
-
-gulp.task('default', ['serve']);
+exports.serve = gulp.series(css, html, cssVendor, jsVendor, serveInit)
 
 //=============================================
 //              PRODUCTION TASKS
 //=============================================
 
-/**
- * The 'clean' task delete 'build' directories.
- */
 
-gulp.task('clean', 'Delete \'build\' directories', (cb) => {
-  let files;
-  files = [].concat(paths.build.basePath);
-  log('Cleaning: ' + COLORS.blue(files));
-  return del(files, cb);
-});
-
-gulp.task('copy-html', () => {
-  return gulp.src(paths.html)
-  //.pipe($.htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest(paths.build.basePath))
-    .pipe($.size({
-      title: 'html'
-    }));
-});
-
-gulp.task('copy-js', () => {
-  return gulp.src(paths.js)
-  //.pipe($.uglify())
-    .pipe(gulp.dest(paths.build.scripts))
-    .pipe($.size({
-      title: 'js'
-    }));
-});
-
-gulp.task('copy-css', () => {
-  return gulp.src(paths.css)
-    .pipe($.autoprefixer({
-      browsers: ['> .01%'],
-      cascade: false
-    }))
-    .pipe($.minifyCss({
-      keepSpecialComments: 0
-    }))
-    .on('error', notifyOnError())
-    .pipe(gulp.dest(paths.build.styles))
-    .pipe($.size({
-      title: 'css'
-    }));
-});
-
-gulp.task('copy-images', () =>
-  gulp.src([
-    paths.img,
-    '!' + paths.iconsForSprite,
-    '!' + paths.svgForFont
-  ])
-    .pipe($.imagemin({
-      interlaced: true,
-      progressive: true,
-      optimizationLevel: 5,
-      svgoPlugins: [
-        {removeViewBox: true},
-        {cleanupIDs: false}
-      ]
-    }))
-    .on('error', notifyOnError())
-    .pipe(gulp.dest(paths.build.images))
-    .pipe($.size({
-      title: 'images'
-    })));
-
-gulp.task('copy-fonts', () => {
-  return gulp.src([
-    paths.fonts,
-    '!' + paths.fontsForConvert
-  ])
-    .on('error', notifyOnError())
-    .pipe(gulp.dest(paths.build.fonts))
-    .pipe($.size({
-      title: 'fonts'
-    }));
-});
-
-gulp.task('build', (callback) => {
-  log(COLORS.blue('********** RUNNING BUILD **********'));
-  return runSequence(
-    'clean',
-    ['copy-html',
-      'copy-js',
-      'copy-css',
-      'copy-images',
-      'copy-fonts'],
-    callback);
-});
-
-/**
- * Deploy
- */
-
-gulp.task('deploy:compress', shell.task('tar -czvf ./' + archiveName + ' --directory=' + buildPath + ' .'))
-
-gulp.task('deploy:prepare', () => {
-  gulpSSH = new GulpSSH({
-    ignoreErrors: false,
-    sshConfig: config
-  })
-
-  gulpSSH.exec('cd ' + releasesPath + ' && mkdir ' + timestamp)
-})
-
-gulp.task('deploy:compress', shell.task('tar -czvf ./' + archiveName + ' --directory=' + buildPath + ' .'))
-
-gulp.task('deploy:prepare', () => {
-  gulpSSH = new GulpSSH({
-    ignoreErrors: false,
-    sshConfig: config
-  })
-
-  gulpSSH.exec('cd ' + releasesPath + ' && mkdir ' + timestamp)
-})
-
-gulp.task('deploy:upload', ['deploy:prepare', 'deploy:compress'], function () {
-  return gulp.src(archiveName)
-    .pipe(gulpSSH.sftp('write', releasePath + '/' + archiveName))
-})
-
-gulp.task('deploy:uncompress', ['deploy:upload'], function () {
-  return gulpSSH.exec('cd ' + releasePath + ' && tar -xzvf ' + archiveName)
-})
-
-gulp.task('deploy:symlink', ['deploy:uncompress'], function () {
-  return gulpSSH.exec('rm -r ' + symlinkPath + ' &&' +
-    ' ln -s ' + releasePath + ' ' + symlinkPath)
-})
-
-gulp.task('deploy:clean', ['deploy:symlink'], shell.task('rm ' + archiveName, { ignoreErrors: true }))
-
-gulp.task('deploy', [
-  'deploy:compress',
-  'deploy:prepare',
-  'deploy:upload',
-  'deploy:uncompress',
-  'deploy:symlink',
-  'deploy:clean'
-])
