@@ -165,6 +165,7 @@ function babel() {
     .pipe(plugins.babel({
       presets: ['@babel/env']
     }))
+    .pipe(plugins.concat('jquery.main.js'))
     .pipe(gulp.dest(paths.jsDir))
 }
 

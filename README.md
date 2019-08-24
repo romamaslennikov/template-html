@@ -25,6 +25,8 @@ Before running any Gulp tasks:
     |     |     |     _sprite_template.css.tmpl
     |     |     |js
     |     |     |     |vendor
+    |     |     |     |es6
+    |     |     |          es6.js
     |     |     |     vendor.js
     |     |     |     jquery.main.js
     |     |     |pug
@@ -40,7 +42,7 @@ Before running any Gulp tasks:
     |     |     |     /svg-for-font  ----->(svg icons for create icons font)
     |     |     |fonts
     |     |     |     |.tmp  ----->(fonts for create web fonts)
-    |     |mail_html
+    |     |mail_html (soon..)
     |     |     index.html
     |     |     email.css
     |     |     |img
@@ -48,7 +50,7 @@ Before running any Gulp tasks:
 
 ## Version
 
-1.1.7
+2.0.0
 
 ## License
 
