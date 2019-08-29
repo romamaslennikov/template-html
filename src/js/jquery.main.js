@@ -9,6 +9,6 @@ window[window.appName] = {};
       console.log("ready");
     });
   };
-})(APP);
+})(window.APP);
 
-APP.init();
+window.APP.init();

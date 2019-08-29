@@ -171,6 +171,15 @@ function babel() {
 
 exports.babel = babel
 
+function eslint() {
+  return gulp.src(paths.jsES6)
+    .pipe(plugins.eslint())
+    .pipe(plugins.eslint.format())
+    .pipe(plugins.eslint.failAfterError());
+}
+
+exports.eslint = eslint
+
 /*
  * Create sprite
  * */
