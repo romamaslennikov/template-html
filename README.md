@@ -1,6 +1,6 @@
 # TEMPLATE HTML - fast built
 gulp: html, css, js, create sprite, svg to fonts, create web fonts,
- minify PNG, JPEG, GIF and SVG images, email builder.
+ minify PNG, JPEG, GIF and SVG images, email builder, eslint.
 
 ![](app.jpg)
 ## Installation
