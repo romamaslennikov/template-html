@@ -175,7 +175,8 @@ function eslint() {
   return gulp.src(paths.jsES6)
     .pipe(plugins.eslint())
     .pipe(plugins.eslint.format())
-    .pipe(plugins.eslint.failAfterError());
+    .pipe(plugins.eslint.failAfterError())
+    .on('error', notifyOnError())
 }
 
 exports.eslint = eslint
@@ -311,7 +312,7 @@ function serveInit() {
 
   gulp.watch(paths.jsDirVendor, gulp.series(jsVendor))
 
-  gulp.watch(paths.jsES6, gulp.series(babel))
+  gulp.watch(paths.jsES6, gulp.series(babel, eslint))
 
   gulp.watch(paths.pug, gulp.series('html'))
 

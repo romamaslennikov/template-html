@@ -6,7 +6,7 @@ window[window.appName] = {};
 (function (APP) {
   APP.init = function () {
     window.addEventListener('load', function () {
-      console.log("ready");
+      console.log("ready1");
     });
   };
 })(window.APP);
