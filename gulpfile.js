@@ -56,6 +56,7 @@ let paths = {
   cssDirVendor: src + 'css/vendor/*.css',
   scss: [src + 'scss/**/*.*ss'],
   scssDir: src + 'scss/',
+  scssDirGeneric: src + 'scss/generic/',
   js: src + 'js/*.js',
   jsDir: src + 'js/',
   jsES6: src + 'js/es6/*.js',
@@ -120,6 +121,7 @@ function css() {
       extension: '.*ss'
     }))
     .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.sassGlob())
     .pipe(plugins.sass({
       errLogToConsole: true
     }))
@@ -203,7 +205,7 @@ function sprite() {
     .pipe(gulp.dest(paths.imgDir))
 
   spriteData.css
-    .pipe(gulp.dest(paths.scssDir))
+    .pipe(gulp.dest(paths.scssDirGeneric))
 
   return spriteData
 }
@@ -241,7 +243,7 @@ function iconfont() {
       fontName: fontName,
       cssClass: cssClassPrefix,
       path: src + 'icons_template/_icons_template.css.tmpl',
-      targetPath: '../scss/_icons.scss',
+      targetPath: '../scss/generic/_icons.scss',
       fontPath: '../fonts/'
     }))
     .on('error', notifyOnError())
