@@ -318,7 +318,7 @@ function serveInit() {
 
   gulp.watch(paths.pug, gulp.series('html'))
 
-  gulp.watch(paths.scss).on('change', browserSync.reload)
+  gulp.watch(paths.css).on('change', browserSync.reload)
 
   gulp.watch(paths.pug).on('change', browserSync.reload)
 
