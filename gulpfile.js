@@ -367,7 +367,9 @@ function copyJs() {
 
 function copyCss() {
   return gulp.src(paths.css)
-    .pipe(plugins.autoprefixer())
+    .pipe(plugins.autoprefixer({
+      grid: true
+    }))
     .pipe(plugins.cleanCss({compatibility: 'ie8'}))
     .on('error', notifyOnError())
     .pipe(gulp.dest(paths.build.styles))
