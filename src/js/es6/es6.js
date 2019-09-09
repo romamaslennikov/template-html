@@ -1,13 +1,13 @@
-window.appName = 'APP'
+window.appName = 'APP';
 
-window[window.appName] = {}
+window[window.appName] = {};
 
-;((APP) => {
+((APP) => {
   APP.init = () => {
     window.addEventListener('load', () => {
-      console.log(`ready`)
-    })
-  }
-})(window.APP)
 
-window.APP.init()
+    });
+  };
+})(window.APP);
+
+window.APP.init();

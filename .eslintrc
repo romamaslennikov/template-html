@@ -1,12 +1,15 @@
 {
-  "extends": "eslint:recommended",
+  "extends": "airbnb/base",
   "env": {
     "browser": true,
-    "jquery": true
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "no-param-reassign": 0
   },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
-  },
-  "rules": {}
+  }
 }

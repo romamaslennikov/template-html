@@ -54,7 +54,7 @@ let paths = {
   css: src + 'css/*.css',
   cssDir: src + 'css/',
   cssDirVendor: src + 'css/vendor/*.css',
-  scss: [src + 'scss/**/*.*ss'],
+  scss: src + 'scss/**/*.s+(a|c)ss',
   scssDir: src + 'scss/',
   scssDirGeneric: src + 'scss/generic/',
   js: src + 'js/*.js',
@@ -114,6 +114,22 @@ exports.html = html
 /**
  * Compile SASS files into the main.css.
  */
+
+function sassLint() {
+  return gulp.src([
+    paths.scss,
+    '!'+paths.scssDir + 'mixins/*'
+  ])
+    .pipe(plugins.sassLint({
+      options: {
+        configFile: '.sass-lint.yml'
+      }
+    }))
+    .pipe(plugins.sassLint.format())
+    .pipe(plugins.sassLint.failOnError())
+}
+
+exports.sassLint = sassLint
 
 function css() {
   return gulp.src(paths.scss)
@@ -308,7 +324,7 @@ function serveInit() {
 
   gulp.watch(paths.svgForFont, gulp.series(iconfont))
 
-  gulp.watch(paths.scss, gulp.series(css))
+  gulp.watch(paths.scss, gulp.series(sassLint, css))
 
   gulp.watch(paths.cssDirVendor, gulp.series(cssVendor))
 

@@ -19,7 +19,7 @@ h4, h5, h6, .h4, .h5, .h6
 /* Links----------------------------------------------------------- * /
 
 a
-  color: $linkColor
+  color: $link-color
   text-decoration: none
 
 a:visited
@@ -32,21 +32,17 @@ a:active
 a:focus
   outline: none
 
-html:not(.desktop) a[href^=tel]
-  text-decoration: underline
-  color: inherit
-
 /* Form tags styles----------------------------------------------------------- * /
 
 textarea
   overflow: auto
 
 input, textarea
-  @include placeholder
+  +placeholder
     color: $placeholder
 
 input:focus, textarea:focus
-  @include placeholder
+  +placeholder
     color: transparent !important
 
 button:active,
@@ -59,8 +55,8 @@ input[type="button"]:active
 .switch
   position: relative
   display: inline-block
-  height: $switchH
-  width: $switchW
+  height: $switch-h
+  width: $switch-w
   vertical-align: middle
   cursor: pointer
   top: -1px
@@ -72,8 +68,8 @@ input[type="button"]:active
   position: absolute
   top: 0
   left: 0
-  height: $switchH
-  width: $switchW
+  height: $switch-h
+  width: $switch-w
 
 .switch input:not(:checked), .switch input:checked
   opacity: 0
@@ -88,8 +84,8 @@ input[type="button"]:active
   left: 0
   right: 0
   bottom: 0
-  background: $switchNotCheckedBg
-  border: $switchNotCheckedBorder
+  background: $switch-not-checked-bg
+  border: $switch-not-checked-border
   border-radius: 30px 30px 30px 30px
 
 /*not checked checkbox*/
@@ -99,21 +95,21 @@ input[type="button"]:active
   left: 0
   right: 0
   bottom: 0
-  background: $switchNotCheckedBg
+  background: $switch-not-checked-bg
   border-radius: 3px 3px 3px 3px
-  border: $switchNotCheckedBorder
+  border: $switch-not-checked-border
 
 /*checked radio*/
 .switch input[type=radio]:checked + i
-  background: $switchCheckedBg
-  box-shadow: $switchCheckedShadow
-  border: $switchCheckedBorder
+  background: $switch-checked-bg
+  box-shadow: $switch-checked-shadow
+  border: $switch-checked-border
 
 /*checked checkbox*/
 .switch input[type=checkbox]:checked + i
-  background: $switchCheckedBg
-  box-shadow: $switchCheckedShadow
-  border: $switchCheckedBorder
+  background: $switch-checked-bg
+  box-shadow: $switch-checked-shadow
+  border: $switch-checked-border
 
 /*hover radio*/
 .switch input[type=radio]:checked + i:hover, label:hover .switch input[type=radio]:checked + i

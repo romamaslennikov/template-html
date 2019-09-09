@@ -1,16 +1,16 @@
 /* Icons font----------------------------------------------------------- */
 @font-face {
-  font-family: '<%= fontName %>';
-  src: url('<%= fontPath %><%= fontName %>.eot');
-  src: url('<%= fontPath %><%= fontName %>.eot?#iefix') format('embedded-opentype'),
-  url('<%= fontPath %><%= fontName %>.woff') format('woff'),
-  url('<%= fontPath %><%= fontName %>.ttf') format('truetype'),
-  url('<%= fontPath %><%= fontName %>.svg#<%= fontName %>') format('svg');
+  font-family: "<%= fontName %>";
+  src: url("<%= fontPath %><%= fontName %>.eot");
+  src: url("<%= fontPath %><%= fontName %>.eot?#iefix") format("embedded-opentype"),
+  url("<%= fontPath %><%= fontName %>.woff") format("woff"),
+  url("<%= fontPath %><%= fontName %>.ttf") format("truetype"),
+  url("<%= fontPath %><%= fontName %>.svg#<%= fontName %>") format("svg");
   font-weight: normal;
   font-style: normal;
 }
-[class*='<%= cssClass %>']:before {
-  font-family: '<%= fontName %>', sans-serif;
+[class*="<%= cssClass %>"]:before {
+  font-family: "<%= fontName %>", sans-serif;
   display: inline-block;
   font-style: normal;
   font-weight: normal;
@@ -19,5 +19,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale
 }
-<% _.each(glyphs, function(glyph) { %>.<%= cssClass %><%= glyph.fileName %>:before {content:'\<%= glyph.codePoint %>';}
+<% _.each(glyphs, function(glyph) { %>.<%= cssClass %><%= glyph.fileName %>:before {
+  content:"\<%= glyph.codePoint %>";
+}
 <% }); %>
