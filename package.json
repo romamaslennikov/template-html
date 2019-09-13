@@ -1,6 +1,6 @@
 {
   "name": "template-html",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "gulp: html, css, js, create sprite, svg to fonts, create web fonts,  minify PNG, JPEG, GIF and SVG images, email builder.",
   "main": "gulpfile.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "build": "gulp build",
     "html": "gulp html",
     "deploy": "gulp deploy",
-    "lint": "gulp eslint"
+    "lint": "gulp eslint",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -63,7 +64,8 @@
     "gulp-svg-sprites": "^4.1.2",
     "gulp-uglify": "^3.0.2",
     "gulp.spritesmith": "^6.10.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "standard-version": "^7.0.0"
   },
   "browserslist": [
     "last 1 version",
