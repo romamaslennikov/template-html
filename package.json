@@ -1,6 +1,6 @@
 {
   "name": "template-html",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "gulp: html, css, js, create sprite, svg to fonts, create web fonts,  minify PNG, JPEG, GIF and SVG images, email builder.",
   "main": "gulpfile.js",
   "scripts": {
