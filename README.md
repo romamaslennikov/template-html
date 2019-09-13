@@ -48,10 +48,6 @@ Before running any Gulp tasks:
     |     |     |img
     |     |     |dist
 
-## Version
-
-2.0.0
-
 ## License
 
 MIT

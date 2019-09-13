@@ -1002,7 +1002,7 @@ body {
   grid-template-columns: 1fr; }
 
 html {
-  font-size: 87.5%; }
+  font-size: 100%; }
 
 /* Container----------------------------------------------------------- * / */
 .content {
@@ -1033,7 +1033,7 @@ html {
   margin: 0 auto; }
 
 svg {
-  width: 1.14286rem;
-  height: 1.14286rem; }
+  width: 1rem;
+  height: 1rem; }
 
 /*# sourceMappingURL=../../maps/main.css.map */
