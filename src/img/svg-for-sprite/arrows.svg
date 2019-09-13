@@ -1,0 +1,17 @@
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 89.5 41.5">
+  <style>
+    .st0{fill:#fff}.st1{fill:none;stroke:#dd0050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}
+  </style>
+  <g id="XMLID_54_">
+    <g id="XMLID_76_">
+      <g id="XMLID_80_">
+        <circle id="XMLID_82_" class="st0" fill="#fff" cx="20.7" cy="20.7" r="20.7"/>
+        <path id="XMLID_81_" class="st1"  fill="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke="#dd0050" d="M24.3 30.1L15 20.7l9.3-9.3"/>
+      </g>
+      <g id="XMLID_77_">
+        <circle id="XMLID_79_" class="st0"  fill="#fff" cx="68.8" cy="20.7" r="20.7"/>
+        <path id="XMLID_78_" class="st1"  fill="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke="#dd0050" d="M65.2 11.4l9.3 9.3-9.3 9.4"/>
+      </g>
+    </g>
+  </g>
+</svg>

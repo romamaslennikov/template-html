@@ -37,8 +37,8 @@ Before running any Gulp tasks:
     |     |     |     vendor.css
     |     |     |scss
     |     |     |img
-    |     |     |     /icons-for-sprite  ----->(icons for create sprite)
-    |     |     |     /svg-for-sprite  ----->(icons for create sprite svg)
+    |     |     |     /png-for-sprite  ----->(png icons for create sprite)
+    |     |     |     /svg-for-sprite  ----->(svg icons for create sprite svg)
     |     |     |     /svg-for-font  ----->(svg icons for create icons font)
     |     |     |fonts
     |     |     |     |.tmp  ----->(fonts for create web fonts)

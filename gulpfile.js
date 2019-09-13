@@ -16,6 +16,7 @@ const moment = require('moment')
 const GulpSSH = require('gulp-ssh')
 const shell = require('gulp-shell')
 const fs = require('fs')
+const path = require('path')
 
 /**
  * Declare variables that are use in gulpfile.js
@@ -61,8 +62,8 @@ let paths = {
   jsDir: src + 'js/',
   jsES6: src + 'js/es6/*.js',
   jsDirVendor: src + 'js/vendor/*.js',
-  iconsForSprite: src + 'img/icons-for-sprite/**/*.png',
-  iconsForSpriteDir: src + 'img/icons-for-sprite/',
+  pngForSprite: src + 'img/png-for-sprite/**/*.png',
+  iconsForSpriteDir: src + 'img/png-for-sprite/',
   img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico,mp4}',
   imgDir: src + 'img/',
   svgForFont: src + 'img/svg-for-font/**/*.svg',
@@ -118,7 +119,7 @@ exports.html = html
 function sassLint() {
   return gulp.src([
     paths.scss,
-    '!'+paths.scssDir + 'mixins/*'
+    '!' + paths.scssDir + 'mixins/*'
   ])
     .pipe(plugins.sassLint({
       options: {
@@ -203,8 +204,8 @@ exports.eslint = eslint
  * Create sprite
  * */
 
-function sprite() {
-  let spriteData = gulp.src(paths.iconsForSprite)
+function spritePng() {
+  let spriteData = gulp.src(paths.pngForSprite)
     .pipe(plugins.spritesmith({
       //retinaSrcFilter: paths.iconsForSpriteDir+'*@2x.png',
       imgName: '../img/sprite.png',
@@ -226,7 +227,7 @@ function sprite() {
   return spriteData
 }
 
-exports.sprite = sprite
+exports.spritePng = spritePng
 
 /*
  * Create svg sprite
@@ -234,16 +235,19 @@ exports.sprite = sprite
 
 function spriteSvg() {
   return gulp.src(paths.svgForSprite)
-    .pipe(plugins.svgSprites({
-      padding: 20,
-      cssFile: 'sprite-svg.css',
-      svg: {
-        sprite: 'sprite.svg'
-      },
-      preview: {
-        sprite: 'sprite-svg.html'
+    .pipe(plugins.svgstore({}))
+    .pipe(plugins.svgmin(file => {
+      let prefix = path.basename(file.relative, path.extname(file.relative))
+      return {
+        plugins: [{
+          cleanupIDs: {
+            prefix: prefix + '-',
+            minify: true
+          }
+        }]
       }
     }))
+    .pipe(plugins.rename('sprite.svg'))
     .pipe(gulp.dest(paths.imgDir))
 }
 
@@ -320,9 +324,11 @@ function serveInit() {
     files: [paths.html, paths.scss, paths.js]
   })
 
-  gulp.watch(paths.iconsForSprite, gulp.series(sprite))
+  gulp.watch(paths.pngForSprite, gulp.series(spritePng))
 
   gulp.watch(paths.svgForFont, gulp.series(iconfont))
+
+  gulp.watch(paths.svgForSprite, gulp.series(spriteSvg))
 
   gulp.watch(paths.scss, gulp.series(sassLint, css))
 
@@ -333,6 +339,8 @@ function serveInit() {
   gulp.watch(paths.jsES6, gulp.series(babel, eslint))
 
   gulp.watch(paths.pug, gulp.series('html'))
+
+  gulp.watch(paths.svgForFont).on('change', browserSync.reload)
 
   gulp.watch(paths.css).on('change', browserSync.reload)
 
@@ -397,7 +405,7 @@ function copyCss() {
 function copyImages() {
   return gulp.src([
     paths.img,
-    '!' + paths.iconsForSprite,
+    '!' + paths.pngForSprite,
     '!' + paths.svgForFont
   ])
     .pipe(plugins.imagemin({

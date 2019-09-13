@@ -6,7 +6,7 @@ window[window.appName] = {};
 (function (APP) {
   APP.init = function () {
     window.addEventListener('load', function () {
-      console.log("ready");
+      window.svg4everybody(); // SVG for Everybody adds SVG External Content
     });
   };
 })(window.APP);
