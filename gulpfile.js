@@ -64,7 +64,7 @@ let paths = {
   jsDirVendor: src + 'js/vendor/*.js',
   pngForSprite: src + 'img/png-for-sprite/**/*.png',
   iconsForSpriteDir: src + 'img/png-for-sprite/',
-  img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico,mp4}',
+  img: src + 'img/**/*.{png,gif,jpg,jpeg,svg,ico,mp4,webp}',
   imgDir: src + 'img/',
   svgForFont: src + 'img/svg-for-font/**/*.svg',
   svgForSprite: src + 'img/svg-for-sprite/**/*.svg',
@@ -201,6 +201,19 @@ function eslint() {
 exports.eslint = eslint
 
 /*
+ * Create webp images
+ * */
+
+function webp() {
+  return gulp.src(paths.img)
+    .pipe(plugins.webp())
+    .on('error', notifyOnError())
+    .pipe(gulp.dest(paths.imgDir))
+}
+
+exports.webp = webp
+
+/*
  * Create sprite
  * */
 
@@ -236,7 +249,7 @@ exports.spritePng = spritePng
 function spriteSvg() {
   return gulp.src(paths.svgForSprite)
     .pipe(plugins.svgstore({}))
-    .pipe(plugins.svgmin(file => {
+    /*.pipe(plugins.svgmin(file => {
       let prefix = path.basename(file.relative, path.extname(file.relative))
       return {
         plugins: [{
@@ -246,7 +259,7 @@ function spriteSvg() {
           }
         }]
       }
-    }))
+    }))*/
     .pipe(plugins.rename('sprite.svg'))
     .pipe(gulp.dest(paths.imgDir))
 }
@@ -323,6 +336,8 @@ function serveInit() {
     open: false,
     files: [paths.html, paths.scss, paths.js]
   })
+
+  gulp.watch(paths.imgDir, gulp.series(webp))
 
   gulp.watch(paths.pngForSprite, gulp.series(spritePng))
 
