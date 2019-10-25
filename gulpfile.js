@@ -490,3 +490,9 @@ function deployClean() {
 }
 
 exports.deploy = gulp.series(deployCompress, deployPrepare, deployUpload, deployUncompress, deploySymlink, deployClean)
+
+/**
+ * Default task
+ */
+
+exports.default = gulp.series(css, html, cssVendor, jsVendor, babel, serveInit)

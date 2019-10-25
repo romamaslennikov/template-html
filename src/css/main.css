@@ -1003,6 +1003,27 @@ body {
 
 html {
   font-size: 100%; }
+  html.no-webp .is-webp {
+    display: none; }
+  html.no-webp .is-nowebp {
+    display: inline; }
+  html.no-webp .owl-carousel .owl-item img.is-webp {
+    display: none; }
+  html.no-webp .owl-carousel .owl-item img.is-nowebp {
+    display: inline; }
+
+.is-webp {
+  display: inline; }
+
+.is-nowebp {
+  display: none; }
+
+.owl-carousel .owl-item img {
+  width: auto; }
+  .owl-carousel .owl-item img.is-webp {
+    display: inline; }
+  .owl-carousel .owl-item img.is-nowebp {
+    display: none; }
 
 /* Container----------------------------------------------------------- * / */
 .content {

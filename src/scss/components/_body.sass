@@ -21,3 +21,32 @@ body
 
 html
   +rem-baseline
+
+  &.no-webp
+    .is-webp
+      display: none
+
+    .is-nowebp
+      display: inline
+
+    .owl-carousel .owl-item img
+      &.is-webp
+        display: none
+
+      &.is-nowebp
+        display: inline
+
+.is-webp
+  display: inline
+
+.is-nowebp
+  display: none
+
+.owl-carousel .owl-item img
+  width: auto
+
+  &.is-webp
+    display: inline
+
+  &.is-nowebp
+    display: none
