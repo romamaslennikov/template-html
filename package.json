@@ -1,6 +1,6 @@
 {
   "name": "template-html",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "gulp: html, css, js, create sprite, svg to fonts, create web fonts,  minify PNG, JPEG, GIF and SVG images, email builder.",
   "main": "gulpfile.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "jsVendor": "gulp jsVendor",
     "fonts": "gulp fonts",
     "serve": "gulp serve",
-    "build": "gulp build",
+    "build": "standard-version --skip.changelog && gulp build",
     "html": "gulp html",
     "deploy": "gulp deploy",
     "lint": "gulp eslint",
