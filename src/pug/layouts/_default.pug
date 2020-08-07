@@ -8,11 +8,12 @@ html(lang='en')
   include ../includes/_head
 
   body
-    block header
+    #app
+      block header
 
-    main.content
-      block content
+      main.content
+        block content
 
-    include ../includes/_footer
+      include ../includes/_footer
 
     include ../includes/_scripts

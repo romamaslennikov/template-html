@@ -11,14 +11,6 @@ html, body
 *, *:before, *:after
   box-sizing: border-box
 
-body
-  min-height: 100%
-  height: auto
-  display: grid
-  grid-template-areas: "header" "content" "footer"
-  grid-template-rows: auto 1fr auto
-  grid-template-columns: 1fr
-
 html
   +rem-baseline
 
@@ -35,6 +27,18 @@ html
 
       &.is-nowebp
         display: inline
+
+#app
+  min-height: 100%
+  display: flex
+  flex-flow: column nowrap
+  justify-content: flex-start
+  align-items: stretch
+  position: relative
+  overflow: hidden
+
+*::-ms-backdrop, .content
+  min-height: 80vh
 
 .is-webp
   display: inline

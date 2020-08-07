@@ -4,13 +4,22 @@ gulp: html, css, js, create sprite, svg to fonts, create web fonts,
 
 ![](app.jpg)
 ## Installation
+Ensure you have **node** installed
+```
+npm i
+```
 
-Before running any Gulp tasks:
+### Compiles and reloads for development
+```
+npm run serve
+```  
+Open link http://localhost:8000
 
-1. Check out this repository
-2. Ensure you have **node** installed
-3. Run `npm run go` in the root directory
-4. Open link http://localhost:8000
+### Compiles and minifies for production
+```
+npm run build
+```
+Source build folder dist
 
 ## Project Structure
 
