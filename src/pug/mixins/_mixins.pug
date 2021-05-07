@@ -1,0 +1,4 @@
+// use: +svg("menu")(class="icon-svg")
+mixin svg(svg_id)
+  svg()&attributes(attributes)
+    use(xlink:href= '../img/sprite.svg#' + svg_id)
