@@ -6,6 +6,7 @@
  * Load required dependencies.
  */
 
+const sass = require('gulp-sass')(require('sass'));
 const runTimestamp = Math.round(Date.now() / 1000)
 const gulp = require('gulp')
 const plugins = require('gulp-load-plugins')()
@@ -122,7 +123,7 @@ function css() {
     }))
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sassGlob())
-    .pipe(plugins.sass({
+    .pipe(sass({
       errLogToConsole: true
     }))
     .on('error', notifyOnError())
